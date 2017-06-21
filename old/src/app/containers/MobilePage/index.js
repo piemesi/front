@@ -111,8 +111,8 @@ class StartPage extends Component {
     renderPage() {
 
 
-        console.log('screen',this.props)
-        console.log('pagenum',this.props)
+        // console.log('screen',this.props)
+        // console.log('pagenum',this.props)
 
         const {pageNum} = this.props;
         switch (pageNum) {

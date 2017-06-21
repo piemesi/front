@@ -1,5 +1,8 @@
 import constants from '../constants'
 
+
+
+
 const courseType = [
     {id:1,title:'Наука'},
     {id:2,title:'Искусство'},
@@ -334,9 +337,53 @@ const shift = [
 
 
 
-const initDataReducer = (state = {courseType,shift}, action) => {
+const initDataReducer = (state = {}, action) => { //state = {courseType,shift}
+
+    console.log('ACTION IS:', action)
+
+
+
 
     switch (action.type) {
+
+
+        case 'GET_INIT_DATA_FULFILLED':
+            console.log('fulfiled', action)
+            return {
+                ...state,
+                ...action.payload
+            }
+            break;
+        // case `${GET_INIT_DATA}_REJECTED`:
+        case `GET_INIT_DATA_REJECTED`:
+            console.log('rejected', action)
+            return {
+                ...state,
+                // books: false,
+                // authors: false,
+                // genres: false
+            }
+            break;
+
+        case 'GET_INIT_ROUTES_FULFILLED':
+            console.log('fulfiled GET_INIT_ROUTES', action)
+            return {
+                ...state,
+                ...action.payload
+            }
+            break;
+        // case `${GET_INIT_DATA}_REJECTED`:
+        case `GET_INIT_ROUTES_REJECTED`:
+            console.log('rejected', action)
+            return {
+                ...state,
+                // books: false,
+                // authors: false,
+                // genres: false
+            }
+            break;
+
+
         case constants.SELECT_COUNTRIES:
 
             console.log('selected', action.selected);

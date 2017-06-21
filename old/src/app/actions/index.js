@@ -1,6 +1,6 @@
 import faker from 'faker'
 import GET_INIT_DATA from '../constants'
-import {getHashOffersRoute } from '../constants/routes'
+import {getHashOffersRoute, getAllDataRoute,getInitRoutesUrls } from '../constants/routes'
 
 
 
@@ -73,8 +73,51 @@ export const selectCountries = (selected) => {
     }
 };
 
-export const getInitData = () => {
+export const getInitRoutes = () => {
+
+    console.log('current request is getInitRoutes')
+
     return {
-        type: GET_INIT_DATA
+        type: 'GET_INIT_ROUTES',
+        payload: fetch(getInitRoutesUrls())
+            .then(response => {
+                if( response.ok ) {
+                    return response.json()
+                }
+                else {
+                    return Promise.reject();
+                }
+            })
+            .then(json => {
+                return Promise.resolve(json)
+            })
     }
 };
+
+export const getInitData = () => {
+
+    console.log('current request is getInitData')
+
+    return {
+        type: 'GET_INIT_DATA',
+        payload:fetch(getAllDataRoute())
+            .then(response => {
+                if( response.ok ) {
+
+                     return response.json();///
+
+                }
+                else {
+                    return Promise.reject();
+                }
+            })
+            .then(json => {
+                return Promise.resolve(json)
+            })
+
+
+
+    }
+};
+
+

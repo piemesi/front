@@ -1,0 +1,4 @@
+{
+	"init_data_url": "http://localhost:3006/data.json",
+	"send_data_url": "http://localhost:3002/"
+}

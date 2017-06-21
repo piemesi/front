@@ -32,7 +32,7 @@ import FlatButton from 'material-ui/FlatButton';
 // REDUX
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {getInitData} from '../../../actions'
+import {getInitRoutes, getInitData} from '../../../actions'
 
 const style = {
 
@@ -102,8 +102,8 @@ const styles = {
         fontSize: "22px",
         fontWeight: "200"
     },
-    clsBtn:{
-        color:"grey"
+    clsBtn: {
+        color: "grey"
     }
 };
 
@@ -135,18 +135,31 @@ const muiTheme = getMuiTheme({
 
 
 import SelectFieldEx from './SelectField'
-import RequestSentEx from './RequestSent'
 import DatePickerEx from './DatePickerEx';
-import {Link} from 'react-router-dom';
-
+import {Link, Redirect} from 'react-router-dom';
 
 class StartPage extends Component {
     constructor(props, context) {
         super(props, context);
+        this.props.getInitRoutes();
 
         this.state = {
-            open: this.props.page != 1 ,
+            open: this.props.page != 1,
         };
+    }
+
+    getInitDataFn() {
+        // console.log('init_data_url',this.props.initData)
+        this.props.getInitData({initDataUrl: this.props.initData['init_data_url']});
+    }
+
+    componentWillMount() {
+
+        if (!this.props.initData['init_data_url']) {
+            setTimeout(this.getInitDataFn.bind(this), 350)
+        }
+
+
     }
 
     handleOpen = () => {
@@ -171,9 +184,17 @@ class StartPage extends Component {
     };
 
 
-    handleClick() {
-        window.location = '/temp/';
+    getExternalPage = () => {
+        return this.props.initData['send_data_url'] || '/page_not_found';
     }
+
+    // handleClick() {
+    //     console.log('redirect');
+    //
+    //
+    //     browserHistory.push('/some/path')
+    //     window.location = '/temp/';
+    // }
 
     render() {
         const standardActions = (
@@ -197,8 +218,8 @@ class StartPage extends Component {
             onTouchTap={this.handleClose}
         />;
 
-        if(this.props.page != 1) {
-            closeBtn = <Link to="/science/1"  ><FlatButton
+        if (this.props.page != 1) {
+            closeBtn = <Link to="/science/1"><FlatButton
                 label="Закрыть"
                 // secondary={true}
                 style={styles.clsBtn}
@@ -206,11 +227,21 @@ class StartPage extends Component {
             /></Link>;
         }
 
+        console.log('currPage', this.props)
+
+        let linkIs = <Link to="/start/2">
+            <FlatButton style={{}} label="Отправить" secondary={true}/>
+        </Link>
+
+        if (this.props.page != "1") {
+            linkIs = <a href={this.getExternalPage()} target="_blank">
+                <FlatButton style={{}} label="Отправить" secondary={true}/>
+            </a>
+        }
+
         const actions = [
             closeBtn,
-            <Link to={this.props.page == 1 ? "/start/2" : this.handleClick}>
-                <FlatButton style={{}}  label="Отправить" secondary={true}/>
-            </Link>,
+            linkIs,
         ];
 
         return (
@@ -287,6 +318,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        getInitRoutes: bindActionCreators(getInitRoutes, dispatch),
         getInitData: bindActionCreators(getInitData, dispatch),
     }
 }
