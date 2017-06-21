@@ -1,54 +1,60 @@
 import React, {Component} from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
-import Dialog from 'material-ui/Dialog';
-import {deepOrange500, purple700,  cyan500, cyan700,
+import {
+    deepOrange500, purple700, cyan500, cyan700,
     pinkA200,
     grey100, grey300, grey400, grey500,
     purple500,
-    white, darkBlack, fullBlack, lightBlue800,  cyan800, cyan900} from 'material-ui/styles/colors';
-import FlatButton from 'material-ui/FlatButton';
+    white, darkBlack, fullBlack, lightBlue800, cyan800, cyan900
+} from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {fade} from 'material-ui/utils/colorManipulator';
 
 import spacing from 'material-ui/styles/spacing';
 
 
-
 import '../../../css/main.less'
 
 
- import {} from 'material-ui/styles/colors';
-import FontIcon from 'material-ui/FontIcon'
+import {} from 'material-ui/styles/colors';
+
 import Paper from 'material-ui/Paper';
- import FontAwesome from 'react-fontawesome';
-import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
+
+
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 /**
  * With the `maxHeight` property set, the Select Field will be scrollable
  * if the number of items causes the height to exceed this limit.
  */
+
+
+// REDUX
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {getInitData} from '../../../actions'
 
 const style = {
 
     width: "360px",
     padding: "0px 30px",
     background: white,
-    borderRedius:"2px",
+    borderRedius: "2px",
 
     // height: 100,
     // width: 100,
     // margin: 20,
     // textAlign: 'center',
     display: 'inline-block',
-    textAlign:"left"
+    textAlign: "left"
 };
 const styles = {
     uploadButton: {
         verticalAlign: 'middle',
-        border:'1px solid', borderRadius:'3px', marginTop:'35px',
+        border: '1px solid', borderRadius: '3px', marginTop: '35px',
         borderColor: white,
-        marginBottom:'27px',
-        paddingBottom:'36px'
+        marginBottom: '27px',
+        paddingBottom: '36px'
     },
     uploadInput: {
         cursor: 'pointer',
@@ -61,9 +67,45 @@ const styles = {
         opacity: 0,
 
     },
+    rb: {
+        width: "250px",
+        borderRadius: "0px",
+        height: "45px",
+
+
+        background: "linear-gradient(180deg, #e24304, #C83b00)"
+    },
+    rbDiv: {
+        backgroundColor: "none",
+        height: "45px",
+
+        // height:"100%",
+    },
+    rbRS: {
+        // height:"60px",
+
+    },
+    rbLS: {
+
+        height: "45px",
+        lineHeight: "45px",
+        letterSpacing: "0.7px",
+        fontWeight: 400
+    },
+    h1: {
+        color: 'white',
+        textTransform: 'uppercase',
+        fontSize: '26px'
+    },
+    p: {
+        color: "white",
+        fontSize: "22px",
+        fontWeight: "200"
+    },
+    clsBtn:{
+        color:"grey"
+    }
 };
-
-
 
 
 const muiTheme = getMuiTheme({
@@ -95,15 +137,26 @@ const muiTheme = getMuiTheme({
 import SelectFieldEx from './SelectField'
 import RequestSentEx from './RequestSent'
 import DatePickerEx from './DatePickerEx';
+import {Link} from 'react-router-dom';
+
 
 class StartPage extends Component {
     constructor(props, context) {
         super(props, context);
 
         this.state = {
-            open: false,
+            open: this.props.page != 1 ,
         };
     }
+
+    handleOpen = () => {
+        this.setState({open: true});
+    };
+
+    handleClose = () => {
+        this.setState({open: false});
+    };
+
 
     handleRequestClose = () => {
         this.setState({
@@ -117,6 +170,11 @@ class StartPage extends Component {
         });
     };
 
+
+    handleClick() {
+        window.location = '/temp/';
+    }
+
     render() {
         const standardActions = (
             <RaisedButton
@@ -127,20 +185,90 @@ class StartPage extends Component {
             />
         );
 
+        const {initData} = this.props;
+        // console.log('ct', initData);
+        //
+        // console.log('page', this.props.page);
+
+        let closeBtn = <FlatButton
+            label="Закрыть"
+            // secondary={true}
+            style={styles.clsBtn}
+            onTouchTap={this.handleClose}
+        />;
+
+        if(this.props.page != 1) {
+            closeBtn = <Link to="/science/1"  ><FlatButton
+                label="Закрыть"
+                // secondary={true}
+                style={styles.clsBtn}
+                onTouchTap={this.handleClose}
+            /></Link>;
+        }
+
+        const actions = [
+            closeBtn,
+            <Link to={this.props.page == 1 ? "/start/2" : this.handleClick}>
+                <FlatButton style={{}}  label="Отправить" secondary={true}/>
+            </Link>,
+        ];
+
         return (
 
-        <main className="sso-form">
-            <Paper style={style} zDepth={3} rounded={false} className="sso-form__layout sso-form__login-form  "  >
+            <main className="sso-form">
 
-                    <h1  >{this.props.page == 2 ? 'Заявка на отбор в смену' : 'Заявка на работу в качестве куратора в период'}</h1>
-                    {this.props.page == 1 ? <SelectFieldEx /> : <DatePickerEx />}
+                <div className="shiftInfo">
+                    <p style={style.p}>13-26 мая 2017</p>
+                    <h1 style={style.h1}>
+                        Математическая смена
+                    </h1>
+                </div>
+                <RaisedButton onTouchTap={this.handleOpen} label="Отправить заявку" secondary={true}
+                              buttonStyle={styles.rb}
+                              rippleStyle={styles.rbRS} labelStyle={styles.rbLS} style={styles.rbDiv}/>
+
+                <Dialog
+                    title={this.props.page == 2 ? 'Заявка на отбор в смену' : 'Заявка на работу в качестве куратора в период'}
+                    actions={actions}
+                    titleStyle={{
+                        fontWeight: 300,
+                        fontFamily: 'Geometria',
+                        fontSize: "18pt",
+                        lineHeight: "21pt",
+                        marginTop: "35px",
+                        textAlign: "left"
+                    }}
+                    modal={true}
+                    style={{}}
+                    actionsContainerStyle={{
+                        paddingBottom: "20px"
+                    }}
+                    overlayClassName="dialog-overlay"
+                    contentClassName="dialog-content"
+                    className="dialog-root"
+                    bodyClassName="dialog-body"
+                    actionsContainerClassName="dialog-actions"
+                    contentStyle={{
+                        borderRadius: "0px",
+                        width: "360px",
+                        // padding: "0px 30px"
+                    }}
+                    open={this.state.open}
+                >
+                    {/*<Paper style={style} zDepth={3} rounded={false} className="sso-form__layout sso-form__login-form  ">*/}
+
+                    {/*<h1  >{this.props.page == 2 ? 'Заявка на отбор в смену' : 'Заявка на работу в качестве куратора в период'}</h1>*/}
+                    {this.props.page == 1 ? <SelectFieldEx initData={initData}/> : <DatePickerEx />}
 
 
+                    {/*<Link to={this.props.page == 2 ? "/start/2" : this.handleClick}><FlatButton style={{marginLeft: '200px', marginTop: '30px', marginBottom: '20px'}}*/}
+                    {/*label="Отправить" secondary={true}/></Link>*/}
+
+                    {/*</Paper>*/}
+                </Dialog>
 
 
-
-            </Paper>
-        </main>
+            </main>
 
 
 
@@ -150,5 +278,20 @@ class StartPage extends Component {
 }
 
 
-export default StartPage;
+const mapStateToProps = (state) => {
+    return {
+        initData: state.initDataReducer
+    }
+}
+
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getInitData: bindActionCreators(getInitData, dispatch),
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(StartPage)
+// export default StartPage;
 

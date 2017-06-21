@@ -67,6 +67,34 @@ import SelectFieldEx from './SelectField'
 import RequestSentEx from './RequestSent'
 import DatePicker from 'material-ui/DatePicker';
 
+/** Ru-locale*/
+import areIntlLocalesSupported from 'intl-locales-supported';
+// import persianUtils from 'material-ui-persian-date-picker-utils';
+
+// let DateTimeFormat;
+let DateTimeFormat = global.Intl.DateTimeFormat;
+/**
+ * Use the native Intl.DateTimeFormat if available, or a polyfill if not.
+ */
+if (areIntlLocalesSupported(['ru'])) {
+    // DateTimeFormat = global.Intl.DateTimeFormat;
+
+    DateTimeFormat = global.Intl.DateTimeFormat('ru', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+        timeZone: 'UTC',
+    }).format;
+
+} else {
+    const IntlPolyfill = require('intl');
+    DateTimeFormat = IntlPolyfill.DateTimeFormat;
+    require('intl/locale-data/jsonp/ru');
+    // require('intl/locale-data/jsonp/fa-IR');
+}
+// console.log('DF',DateTimeFormat)
+/** Ru-locale*/
+
 class StartPage extends Component {
     constructor(props, context) {
         super(props, context);
@@ -126,7 +154,18 @@ class StartPage extends Component {
                     >
 
                         Some information for you
-                        <DatePicker hintText="Date Picker" />
+                        <DatePicker
+                            locale="ru"
+                            DateTimeFormat={DateTimeFormat}
+                            hintText="Date Picker"
+                            formatDate={new DateTimeFormat('ru', {
+                                day: 'numeric',
+                                month: 'long',
+                                year: 'numeric',
+                                timeZone: 'UTC',
+                            }).format}
+
+                        />
                     </Dialog>
 
                     <RaisedButton

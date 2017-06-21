@@ -11,19 +11,27 @@ import './routing.scss'
 
 const AnimationRouting = () => (
 	<Router>
-		<Route render={({ location }) => (
+
+		{/*<HSL match={{ params: { id: 0 }, url: '' }}/>*/}
+
+        <Route render={({ location }) => (
 			<div style={styles.fill}>
-				<Route exact path="/old" render={() => (
-					<Redirect to="/start/1"/>
-                )}/>
+				<Route exact path="*"
+
+
+				    render={() => (
+					 <Redirect to="/science/1"/>
+                  )}
+
+				/>
 
 
 
 				<div style={styles.content}>
 					<CSSTransitionGroup
 						transitionName="fade"
-						transitionEnterTimeout={300}
-						transitionLeaveTimeout={300}
+						transitionEnterTimeout={100}
+						transitionLeaveTimeout={100}
 					>
                         {/* no different than other usage of
 						 CSSTransitionGroup, just make

@@ -22,7 +22,7 @@ const config = {
         contentBase: 'src/www', // Relative directory for base of server
         hot: true, // Live-reload
         inline: true,
-        port: 3005, // Port Number
+        port: 3006, // Port Number
         host: 'localhost', // Change to '0.0.0.0' for external facing server
     },
     devtool: 'eval', // '#cheap-module-source-map',

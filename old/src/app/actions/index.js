@@ -1,5 +1,5 @@
 import faker from 'faker'
-import constants from '../constants'
+import GET_INIT_DATA from '../constants'
 import {getHashOffersRoute } from '../constants/routes'
 
 
@@ -31,8 +31,8 @@ export const selectNewOffer = (author, text, datetime) => {
 
 export const getHashOffers = () => {
 
-    console.log('CCCCCC',constants.GET_HASH_OFFERS)
-    console.log('CCCCCC1',getHashOffersRoute())
+    // console.log('CCCCCC',constants.GET_HASH_OFFERS)
+    // console.log('CCCCCC1',getHashOffersRoute())
     return (dispatch) => {
         dispatch({
             type: constants.GET_HASH_OFFERS,
@@ -70,5 +70,11 @@ export const selectCountries = (selected) => {
     return {
         type: 'SELECT_COUNTRIES',
         selected
+    }
+};
+
+export const getInitData = () => {
+    return {
+        type: GET_INIT_DATA
     }
 };

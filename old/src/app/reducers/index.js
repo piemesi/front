@@ -4,13 +4,17 @@ import countriesReducer from './countries'
 import mapReducer from './map'
 import searchReducer from './search'
 import footerReducer from './footer'
+import initDataReducer from './initData'
 
 const myReducer = combineReducers({
-    footerReducer,
-    offersReducer,
-    searchReducer,
-    countriesReducer,
-    mapReducer
+
+    initDataReducer
+
+    // footerReducer,
+    // offersReducer,
+    // searchReducer,
+    // countriesReducer,
+    // mapReducer
 });
 
 export default myReducer

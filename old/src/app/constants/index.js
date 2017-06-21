@@ -8,4 +8,6 @@ export default keyMirror({
     SHOW_SEARCH: null,
     SELECT_COUNTRIES: null,
     GET_HASH_OFFERS: null,
+
+    GET_INIT_DATA: null
 })

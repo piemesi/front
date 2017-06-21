@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "description": "Web Views of Sochisiruis",
   "scripts": {
-    "start": "webpack-dev-server --config webpack-dev-server.config.js --watch --progress --inline --colors",
+    "start": "webpack-dev-server --config webpack-dev-server.config.js --watch --hot --progress --inline --colors",
     "build": "webpack --config webpack-production.config.js --progress --colors",
-    "webpack-devserver": "webpack-dev-server --debug --hot --devtool eval-source-map --output-pathinfo --watch --colors --inline --content-base public --port 8090 --host 0.0.0.0"
+    "webpack-devserver": "webpack-dev-server --debug --hot --devtool eval-source-map --output-pathinfo --watch --colors --inline --content-base public --port 3006 --host 0.0.0.0"
   },
   "private": true,
   "author": {
@@ -49,12 +49,15 @@
     "events": "^1.1.1",
     "exports-loader": "^0.6.4",
     "express": "*",
+    "faker": "^4.1.0",
     "flux": "^3.1.2",
     "font-awesome": "^4.7.0",
     "google-map-react": "^0.24.0",
     "griddle-react": "^1.0.0",
     "import-loader": "^1.0.1",
     "imports-loader": "^0.7.1",
+    "intl": "^1.2.5",
+    "intl-locales-supported": "^1.0.0",
     "jquery": "*",
     "key-mirror": "^1.0.1",
     "keymirror": "^0.1.1",

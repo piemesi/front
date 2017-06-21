@@ -68,15 +68,11 @@ const muiTheme = getMuiTheme({
 });
 
 
-import SelectFieldEx from './SelectField'
-import RequestSentEx from './RequestSent'
-import DatePicker from 'material-ui/DatePicker';
 
 import Page1 from './Page1'
 
 import InitPage from './Page2'
-import Page3 from './Page3'
-import Page4 from './Page4'
+ import Page4 from './Page4'
 import Page5 from './Page5'
 
 
@@ -84,8 +80,15 @@ import EmailPage from './EmailPage'
 
 import NotFound from '../NotFound'
 
+import Header from '../../components/Header'
+import Footer from '../../components/Footer'
+
 class StartPage extends Component {
     constructor(props, context) {
+
+
+
+
         super(props, context);
 
         this.state = {
@@ -106,6 +109,10 @@ class StartPage extends Component {
     };
 
     renderPage() {
+
+
+        console.log('screen',this.props)
+        console.log('pagenum',this.props)
 
         const {pageNum} = this.props;
         switch (pageNum) {
@@ -147,10 +154,11 @@ class StartPage extends Component {
             />
         );
 
+        console.log("p",this.props)
 
         return (
 
-            <div className="sso-box">
+            <div className="sso-box sso-bg-fon">
 
 
                 <MuiThemeProvider muiTheme={muiTheme}>
@@ -158,36 +166,30 @@ class StartPage extends Component {
 
                     <div className="page-wrap" style={{width: "100%", fontFamily: "'Roboto', sans-serif"}}>
 
-                        <header className="sso-header">
-                            <div className="sso-header__name">
-                            <span className="name-main">
-                                СИРИУС
-                            </span>
-                                <br/>
-                                <span className="name-info">
-                                ОНЛАЙН
-                            </span>
-                            </div>
-                            <div className="sso-header__info">СРЕДА <br/> ДИСТАНЦИОННОГО <br/> ОБРАЗОВАНИЯ</div>
-                        </header>
+
+                        <Header />
 
 
                         {this.renderPage()}
 
 
-                        <footer className="sso-footer">
-                            <div className="sso-footer__left-section">
-                                <img className="sso-footer__left-section-em" src="/images/em.png"/>
-                                <span className="sso-footer__left-section-text">
-                                    При поддержке и координации <br/> Министерства образования и науки, Министерства спорта <br/> и Министерства культуры Российской Федерации.
-                              </span>
-                            </div>
-                            <div className="sso-footer__right-section">
-                                <span className="right-section-copy">
-                                      © 2015-2017 Фонд «Талант и успех»
-                                </span>
-                            </div>
-                        </footer>
+
+
+                        <Footer />
+
+                        {/*<footer className="sso-footer">*/}
+                            {/*<div className="sso-footer__left-section">*/}
+                                {/*<img className="sso-footer__left-section-em" src="/images/em.png"/>*/}
+                                {/*<span className="sso-footer__left-section-text">*/}
+                                    {/*При поддержке и координации <br/> Министерства образования и науки, Министерства спорта <br/> и Министерства культуры Российской Федерации.*/}
+                              {/*</span>*/}
+                            {/*</div>*/}
+                            {/*<div className="sso-footer__right-section">*/}
+                                {/*<span className="right-section-copy">*/}
+                                      {/*© 2015-2017 Фонд «Талант и успех»*/}
+                                {/*</span>*/}
+                            {/*</div>*/}
+                        {/*</footer>*/}
 
 
 
@@ -202,31 +204,3 @@ class StartPage extends Component {
 
 export default StartPage;
 
-
-/**
- * <div style={{width: "300px", margin: "5px"}}>
- <h2>Заявка на отбор в смену</h2>
- <SelectFieldEx />
- </div>
-
-
- <Dialog
- open={this.state.open}
- title="Hallo, Alexey"
- actions={standardActions}
- modal={false}
- onRequestClose={this.handleRequestClose}
- style={{padding: "0"}}
- >
-
- Some information for you
- <DatePicker hintText="Date Picker"/>
- </Dialog>
-
- <RaisedButton
- label="open popup"
- secondary={true}
- onTouchTap={this.handleTouchTap}
- />
-
- */

@@ -10,6 +10,9 @@ import MenuItem from 'material-ui/MenuItem';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 
 
+
+import muiThemeable from 'material-ui/styles/muiThemeable';
+
  const fields = [
     {id:1,title:'Наука'},
     {id:2,title:'Творчество'},
@@ -36,7 +39,26 @@ fields2.map((m) => {
     items2.push(<MenuItem value={m.id} key={m.id} primaryText={m.title}/>);
 });
 
+/** Ru-locale*/
+import areIntlLocalesSupported from 'intl-locales-supported';
+// import persianUtils from 'material-ui-persian-date-picker-utils';
 
+// let DateTimeFormat;
+let DateTimeFormat = global.Intl.DateTimeFormat;
+/**
+ * Use the native Intl.DateTimeFormat if available, or a polyfill if not.
+ */
+if (areIntlLocalesSupported(['ru'])) {
+    // DateTimeFormat = global.Intl.DateTimeFormat;
+
+    DateTimeFormat = global.Intl.DateTimeFormat;
+ } else {
+    const IntlPolyfill = require('intl');
+    DateTimeFormat = IntlPolyfill.DateTimeFormat;
+    require('intl/locale-data/jsonp/ru');
+    // require('intl/locale-data/jsonp/fa-IR');
+}
+ /** Ru-locale*/
 
 
 const optionsStyle = {
@@ -58,9 +80,17 @@ const datePickerItem = {
  * With the `maxHeight` property set, the Select Field will be scrollable
  * if the number of items causes the height to exceed this limit.
  */
-export default class DatePickerEx extends Component {
+class DatePickerEx extends Component {
     constructor(props) {
         super(props);
+
+
+
+
+
+
+            this.muiTheme = props.muiTheme
+
 
         const minDate = new Date();
         const maxDate = new Date();
@@ -95,9 +125,6 @@ export default class DatePickerEx extends Component {
         });
     };
 
-    handleClick(){
-        window.location = '/temp/';
-    }
 
     render() {
         return (
@@ -111,6 +138,10 @@ export default class DatePickerEx extends Component {
                         floatingLabelText="С"
                         defaultDate={this.state.minDate}
                         disableYearSelection={this.state.disableYearSelection}
+                        locale="ru"
+                        cancelLabel="Отменить"
+                        DateTimeFormat={DateTimeFormat}
+
                     />
                     <DatePicker
                         textFieldStyle={datePickerItem}
@@ -119,15 +150,22 @@ export default class DatePickerEx extends Component {
                         floatingLabelText="По"
                         defaultDate={this.state.maxDate}
                         disableYearSelection={this.state.disableYearSelection}
+                        locale="ru"
+                        cancelLabel="Отменить"
+                        DateTimeFormat={DateTimeFormat}
+
                     />
 
                 </div>
 
 
 
-                 <FlatButton onClick={this.handleClick} style={{marginLeft:'200px',marginTop:'30px',marginBottom:'20px'}} label="Отправить" secondary={true} />
+                 {/*<FlatButton onClick={this.handleClick} style={{marginLeft:'200px',marginTop:'30px',marginBottom:'20px'}} label="Отправить" secondary={true} />*/}
 
             </div>
         );
     }
     }
+
+
+export default muiThemeable()(DatePickerEx);

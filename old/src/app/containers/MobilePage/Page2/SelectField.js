@@ -1,81 +1,191 @@
 import React, {Component} from 'react';
 import SelectField from 'material-ui/SelectField';
-import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
-
-
 import MenuItem from 'material-ui/MenuItem';
+import {Link} from 'react-router-dom';
 
-import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
+import _ from 'lodash';
 
-
- const fields = [
-    {id:1,title:'Наука'},
-    {id:2,title:'Творчество'},
-    {id:3,title:'Образование'},
-    {id:4,title:'Спорт'},
-
-];
- const items=[];
-items.push(<MenuItem value={null} key={0} primaryText=""/>)
-fields.map((m) => {
-    items.push(<MenuItem value={m.id} key={m.id} primaryText={m.title}/>);
-});
-
-const fields2 = [
-    {id:1,title:'Математическая смена'},
-    {id:2,title:'Творчество'},
-    {id:3,title:'Образование'},
-    {id:4,title:'Спорт'},
-
-];
-const items2=[];
-items2.push(<MenuItem value={null} key={0} primaryText=""/>)
-fields2.map((m) => {
-    items2.push(<MenuItem value={m.id} key={m.id} primaryText={m.title}/>);
-});
 
 /**
  * With the `maxHeight` property set, the Select Field will be scrollable
  * if the number of items causes the height to exceed this limit.
  */
 export default class SelectFieldEx extends Component {
-    state = {
-        value: null,
-        value2: 1
-    };
+
+
+    constructor(props) {
+        super(props);
+
+
+        this.items = this.props.initData.courseType.map((m) => {
+            return <MenuItem value={m.id} key={m.id} primaryText={m.title}/>;
+        });
+
+
+        this.shiftItems = this.props.initData.shift.map((m) => {
+
+            return <MenuItem value={m.id} key={m.id} primaryText={m.title + ' (' + m.ds + '-' + m.df + ')'}/>;
+        });
+
+
+        const currentCourse = this.props.choosenCourse || 1
+
+        this.itemsCourseType = [];
+        // let i = 0;
+
+        this.dateNow = new Date().getTime();
+        // console.log('timne',dateNow);
+
+        let currentShiftSelected = null
+        let shiftsInCourseTypes = {};
+        // itemsCourseType = Object.keys(this.shiftItems).map((item, index) => {
+        this.props.initData.shift.map((item, index) => {
+            // search related book to author
+
+            let dateDs = new Date(item.ds);
+            if (this.dateNow > dateDs.getTime()) {
+                return false;
+            }
+
+            shiftsInCourseTypes[item.course_type] = shiftsInCourseTypes[item.course_type] ? shiftsInCourseTypes[item.course_type] + 1 : 1;
+
+
+            if (item.course_type === currentCourse) {
+
+
+                currentShiftSelected = currentShiftSelected || item.id;
+                this.itemsCourseType.push(<MenuItem value={item.id} key={item.id} primaryText={item.title}/>);
+                // i++;
+            }
+        })
+        ;
+
+
+        let newArr = this.items.filter((i) => {
+            return _.indexOf(shiftsInCourseTypes, i.id)
+        })
+
+
+        const finalItems = [];
+        // console.log('items', this.items);
+        Object.keys(shiftsInCourseTypes).map((item, index) => {
+            console.log('item', item)
+            let a = _.filter(this.items, {'key': item});
+            finalItems.push(a);
+        })
+
+
+        // console.log('shiftsInCourseTypes',shiftsInCourseTypes)
+
+        this.items = finalItems;
+        // console.log('ct', finalItems);
+
+
+        this.state = {
+            value: currentCourse,
+            shiftItems: currentShiftSelected,
+            itemsCourseType: this.itemsCourseType
+        };
+
+
+    }
+
 
     handleChange = (event, index, value) => {
-        this.setState({value});
+
+        this.setState({shiftItems: value});
+    };
+
+    handleChangeDirection = (event, index, value) => {
+        let currentShiftSelected = null
+        this.itemsCourseType = [];
+        this.props.initData.shift.map((item, index) => {
+            // search related book to author
+            if (item.course_type === value) {
+
+                let dateDs = new Date(item.ds);
+                if (this.dateNow > dateDs.getTime()) {
+                    return false;
+                }
+                let dateDf = new Date(item.df);
+
+
+                let options1 = {
+                    // era: 'long',
+                    // year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                    // weekday: 'long',
+                    // timezone: 'UTC',
+                    // hour: 'numeric',
+                    // minute: 'numeric',
+                    // second: 'numeric'
+                };
+
+                let options2 = {
+                    month: 'long',
+                    day: 'numeric'
+
+                };
+
+                if (dateDs.getMonth() === dateDf.getMonth()) {
+                    options1 = {
+                        day: 'numeric'
+                    };
+                    options2 = {
+                        month: 'long',
+                        day: 'numeric'
+
+                    };
+                }
+
+                let title = item.course_type == 7 ? dateDs.toLocaleString("ru", options1) + " - " + dateDf.toLocaleString("ru", options2) : item.title;
+
+                currentShiftSelected = currentShiftSelected || item.id;
+                this.itemsCourseType.push(<MenuItem value={item.id} key={item.id} primaryText={title}/>);
+                //+' ('+item.ds+'-'+item.df+')'
+            }
+        })
+
+        // this.setState({value});
+
+        this.setState({value: value, itemsCourseType: this.itemsCourseType, shiftItems: currentShiftSelected});
     };
 
     render() {
+
+
         return (
             <div>
                 <SelectField
                     floatingLabelText="Направление"
                     value={this.state.value}
-                    onChange={this.handleChange}
+                    onChange={this.handleChangeDirection}
                     maxHeight={200}
                     fullWidth={true}
+
                 >
-                    {items}
+                    {this.items}
                 </SelectField><br />
                 <SelectField
                     floatingLabelText="Смена"
-                    value={this.state.value2}
+                    value={this.state.shiftItems}
                     onChange={this.handleChange}
                     maxHeight={200}
                     fullWidth={true}
+
                 >
-                    {items2}
+                    {this.state.itemsCourseType}
                 </SelectField>
                 {/*<TextField*/}
-                    {/*hintText="Hint Text"*/}
-                    {/*floatingLabelText="Floating Label Text"*/}
+                {/*hintText="Hint Text"*/}
+                {/*floatingLabelText="Floating Label Text"*/}
                 {/*/><br />*/}
-                <Link to="/start/2"><FlatButton style={{marginLeft:'200px',marginTop:'30px',marginBottom:'20px'}} label="Отправить" secondary={true} /></Link>
+
             </div>
-    );
+        );
     }
-    }
+}
+
+
