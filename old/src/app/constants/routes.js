@@ -1,5 +1,5 @@
 const url = 'http://localhost:3006';
-const initRoutesUrl = 'http://localhost:3006/init_routes.json';
+const initRoutesUrl = 'http://localhost:3002/init_routes.json';
 const dataUrl = 'http://localhost:3006/data.json';
 
 export const getHashOffersRoute = () => `${url}/offers/`

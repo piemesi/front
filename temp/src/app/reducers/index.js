@@ -5,12 +5,17 @@ import mapReducer from './map'
 import searchReducer from './search'
 import footerReducer from './footer'
 
+import pageReducer from './page'
+import initDataReducer from './initData'
+
 const myReducer = combineReducers({
-    footerReducer,
-    offersReducer,
-    searchReducer,
-    countriesReducer,
-    mapReducer
+    pageReducer,
+    initDataReducer
+    // footerReducer,
+    // offersReducer,
+    // searchReducer,
+    // countriesReducer,
+    // mapReducer
 });
 
 export default myReducer

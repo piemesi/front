@@ -1,12 +1,21 @@
 import constants from '../constants'
 
 const Pages ={
-    currentPage: null
-}
+    num: '1'
+};
 
 const PageNavigatorReducer = (state = Pages, action) => {
 
+    console.log('action is',action)
+
     switch (action.type) {
+        case "SET_PAGE":
+            return {...state, num: action.page};
+            break;
+        case "GET_PAGE":
+            return state;
+            break;
+
         case constants.GET_PAGE_NAVIGATOR:
 
 

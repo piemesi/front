@@ -75,8 +75,7 @@ export const selectCountries = (selected) => {
 
 export const getInitRoutes = () => {
 
-    console.log('current request is getInitRoutes')
-
+ 
     return {
         type: 'GET_INIT_ROUTES',
         payload: fetch(getInitRoutesUrls())
