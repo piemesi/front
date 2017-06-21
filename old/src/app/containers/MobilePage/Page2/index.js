@@ -286,16 +286,10 @@ class StartPage extends Component {
                     }}
                     open={this.state.open}
                 >
-                    {/*<Paper style={style} zDepth={3} rounded={false} className="sso-form__layout sso-form__login-form  ">*/}
-
-                    {/*<h1  >{this.props.page == 2 ? 'Заявка на отбор в смену' : 'Заявка на работу в качестве куратора в период'}</h1>*/}
-                    {this.props.page == 1 ? <SelectFieldEx initData={initData}/> : <DatePickerEx />}
+                     {this.props.page == 1 ? <SelectFieldEx initData={initData}/> : <DatePickerEx />}
 
 
-                    {/*<Link to={this.props.page == 2 ? "/start/2" : this.handleClick}><FlatButton style={{marginLeft: '200px', marginTop: '30px', marginBottom: '20px'}}*/}
-                    {/*label="Отправить" secondary={true}/></Link>*/}
 
-                    {/*</Paper>*/}
                 </Dialog>
 
 
