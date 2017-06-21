@@ -13,7 +13,7 @@ import './routing.scss'
 import Video from '../containers/Video'
 
 const AnimationRouting = () => (
-	<Router>
+	<Router >
 		<Route render={({ location }) => (
 			<div style={styles.fill}>
                 {/*<Route exact path="*" render={() => (*/}
@@ -28,18 +28,21 @@ const AnimationRouting = () => (
 						transitionEnterTimeout={300}
 						transitionLeaveTimeout={300}
 					>
+
                         {/* no different than other usage of
 						 CSSTransitionGroup, just make
 						 sure to pass `location` to `Route`
 						 so it can match the old location
 						 as it animates out
 						 */}
-						<Route   path="*"
+						<Route    path="*"
 							location={location}
 							key={location.key}
-							// path="/:screenType/:pageNum"
+
 							component={HSL}
 						/>
+
+
 					</CSSTransitionGroup>
 				</div>
 			</div>
@@ -55,7 +58,11 @@ const NavLink = (props) => (
 
 import Page from '../containers/MobilePage'
 
-const HSL = ({ match: { params } }) => {
+const HSL = (  props    ) => {
+//
+    const params = new URLSearchParams(props.location.search);
+    const shift = params.get('shift'); // bar
+    console.log('shift',shift)
 
     const videos =  [
             {src:'http://cdn.online-convert.com/example-file/video/mp4/example_2s.mp4',
@@ -77,12 +84,6 @@ const HSL = ({ match: { params } }) => {
 
 
 
-//
-// style={{
-// ...styles.fill,
-// ...styles.hsl,
-//         background: `hsl(${params.h}, ${params.s}%, ${params.l}%)`
-// }}
 
 const styles = {}
 
@@ -96,8 +97,7 @@ styles.fill = {
 
 styles.content = {
     ...styles.fill,
-    // top: '40px',
-    // textAlign: 'center'
+
 }
 
 styles.nav = {

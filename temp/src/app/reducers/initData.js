@@ -1,14 +1,9 @@
 import constants from '../constants'
 
 
-
-
-
 const initDataReducer = (state = {}, action) => { //state = {courseType,shift}
 
     console.log('ACTION IS:', action)
-
-
 
 
     switch (action.type) {
@@ -21,7 +16,7 @@ const initDataReducer = (state = {}, action) => { //state = {courseType,shift}
                 ...action.payload
             }
             break;
-         case `GET_TOKEN_REJECTED`:
+        case `GET_TOKEN_REJECTED`:
             console.log('rejected', action)
             return {
                 ...state,
@@ -43,7 +38,6 @@ const initDataReducer = (state = {}, action) => { //state = {courseType,shift}
 
             }
             break;
-
 
 
         case 'SEND_CODE_FULFILLED':

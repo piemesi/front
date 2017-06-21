@@ -3,7 +3,7 @@ import {render} from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 
-// import {Router, browserHistory} from 'react-router'
+ // import {Router, browserHistory} from 'react-router'
 import MyRoutes from './routing/index'
 
 
@@ -26,5 +26,5 @@ render(
     ,
     document.getElementById('app')
 );
-//<Router history={browserHistory} routes={Routes} />
+//
 

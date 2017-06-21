@@ -89,9 +89,18 @@ import EmailPage from './EmailPage'
 
 import NotFound from '../NotFound'
 
+ import queryString from 'query-string'
+
 class StartPage extends Component {
+
+
+
     constructor(props, context) {
         super(props, context);
+
+        console.log('location_props',context);
+        let parsed = queryString.parse(history.location);
+        console.log('location_props',history.location); // replace param with your own
 
         this.state = {
             open: false,
