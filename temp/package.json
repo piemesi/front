@@ -1,9 +1,9 @@
 {
-  "name": "TripMe.Top",
+  "name": "Front",
   "version": "0.0.1",
   "description": "Web Views of TripMe.Top",
   "scripts": {
-    "start": "webpack-dev-server --config webpack-dev-server.config.js --watch --progress --inline --colors",
+    "start": "webpack-dev-server --config webpack-dev-server.config.js --hot --watch --progress --inline --colors",
     "build": "webpack --config webpack-production.config.js --progress --colors",
     "webpack-devserver": "webpack-dev-server --debug --hot --devtool eval-source-map --output-pathinfo --watch --colors --inline --content-base public --port 8090 --host 0.0.0.0"
   },

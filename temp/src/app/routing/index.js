@@ -9,13 +9,16 @@ import {
 
 import './routing.scss'
 
+
+import Video from '../containers/Video'
+
 const AnimationRouting = () => (
 	<Router>
 		<Route render={({ location }) => (
 			<div style={styles.fill}>
-				<Route exact path="/temp" render={() => (
-					<Redirect to="/page/1"/>
-                )}/>
+                {/*<Route exact path="*" render={() => (*/}
+					{/*<Redirect to="/page/1"/>*/}
+                {/*)}/>*/}
 
 
 
@@ -31,10 +34,10 @@ const AnimationRouting = () => (
 						 so it can match the old location
 						 as it animates out
 						 */}
-						<Route
+						<Route   path="*"
 							location={location}
 							key={location.key}
-							path="/:screenType/:pageNum"
+							// path="/:screenType/:pageNum"
 							component={HSL}
 						/>
 					</CSSTransitionGroup>
@@ -52,12 +55,27 @@ const NavLink = (props) => (
 
 import Page from '../containers/MobilePage'
 
-const HSL = ({ match: { params } }) => (
+const HSL = ({ match: { params } }) => {
 
-<Page screenType={params.screenType} pageNum={params.pageNum} />
+    const videos =  [
+            {src:'http://cdn.online-convert.com/example-file/video/mp4/example_2s.mp4',
+                type:'video/mp4'
+            }
+        ];
+	return <Video overlayElement={<Page screenType='page' pageNum='1'
+
+	/>}
+
+		   videos={videos}
+		   orerlay={true}
+		   loop={false}
+
+	/>
+}
 
 
-)
+
+
 
 //
 // style={{
