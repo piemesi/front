@@ -3,7 +3,10 @@ import FlatButton from 'material-ui/FlatButton';
 import  * as colors  from 'material-ui/styles/colors';
 
 import {Link} from 'react-router-dom';
-
+// REDUX
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {setCurrentPage} from '../../actions'
 const styles = {
     uploadButton: {
         verticalAlign: 'middle',
@@ -14,20 +17,39 @@ const styles = {
     }
 }
 
-export default class EmailPageBtn extends Component {
+class EmailPageBtn extends Component {
+
+    renderEmailPage = () => {
+        this.props.setCurrentPage('email')
+    }
 
     render() {
         return (
-            <Link to="/page/email"><FlatButton
-                fullWidth={true}
+            <FlatButton fullWidth={true} onClick={this.renderEmailPage}
+                        label="Войти по e-mail или по телефону"
+                        labelPosition="before"
+                        labelStyle={{color: colors.white, textTransform: 'initial'}}
+                        style={styles.uploadButton}
 
-                label="Войти по e-mail или по телефону"
-                labelPosition="before"
-                labelStyle={{color: colors.white, textTransform: 'initial'}}
-                style={styles.uploadButton}
-
-                containerElement="label"
-            /></Link>
+                        containerElement="label"
+            />
         );
     }
 }
+
+
+const mapStateToProps = (state) => {
+    return {
+        initData: state.initDataReducer
+    }
+}
+
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setCurrentPage: bindActionCreators(setCurrentPage, dispatch),
+        // getInitData: bindActionCreators(getInitData, dispatch),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EmailPageBtn)

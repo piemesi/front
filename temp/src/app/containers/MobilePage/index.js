@@ -25,6 +25,11 @@ import './style.scss'
 import './mobile.scss'
 
 
+// REDUX
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {getInitRoutes, getInitData, getToken} from '../../actions'
+
 const styles = {
     container: {
         textAlign: 'center',
@@ -84,13 +89,31 @@ import EmailPage from './EmailPage'
 
 import NotFound from '../NotFound'
 
+ import queryString from 'query-string'
+
 class StartPage extends Component {
+
+
+
     constructor(props, context) {
         super(props, context);
 
+        console.log('location_props',context);
+        let parsed = queryString.parse(history.location);
+        console.log('location_props',history.location); // replace param with your own
+
         this.state = {
             open: false,
+            renderPage:
+                {"1":<Page_1 page="1"/>,
+                    email:<EmailPage page="1"/>}
         };
+
+
+    }
+
+    componentWillMount(){
+        this.props.getInitRoutes();
     }
 
     handleRequestClose = () => {
@@ -105,11 +128,17 @@ class StartPage extends Component {
         });
     };
 
-    renderPage() {
+    renderPageFn() {
 
-        const {pageNum} = this.props;
-        switch (pageNum) {
+
+
+
+        const {pageNum, currentPage} = this.props;
+console.log('ppp', this.props)
+
+        switch (currentPage.num) {
             case '1':
+                console.log('this Page is',this.props)
                 return <Page_1 page="1"/>;
                 break;
             case '2':
@@ -172,7 +201,7 @@ class StartPage extends Component {
                         </header>
 
 
-                        {this.renderPage()}
+                        {this.state.renderPage[this.props.currentPage.num] || <NotFound/>}
 
 
                         <footer className="sso-footer">
@@ -200,33 +229,24 @@ class StartPage extends Component {
 }
 
 
-export default StartPage;
+
+const mapStateToProps = (state) => {
+    return {
+        initData: state.initDataReducer,
+        currentPage: state.pageReducer
+    }
+}
 
 
-/**
- * <div style={{width: "300px", margin: "5px"}}>
- <h2>Заявка на отбор в смену</h2>
- <SelectFieldEx />
- </div>
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getInitRoutes: bindActionCreators(getInitRoutes, dispatch),
+        // getInitData: bindActionCreators(getInitData, dispatch),
+    }
+}
 
 
- <Dialog
- open={this.state.open}
- title="Hallo, Alexey"
- actions={standardActions}
- modal={false}
- onRequestClose={this.handleRequestClose}
- style={{padding: "0"}}
- >
+export default connect(mapStateToProps, mapDispatchToProps)(StartPage)
 
- Some information for you
- <DatePicker hintText="Date Picker"/>
- </Dialog>
 
- <RaisedButton
- label="open popup"
- secondary={true}
- onTouchTap={this.handleTouchTap}
- />
 
- */
