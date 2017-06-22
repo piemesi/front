@@ -3,7 +3,8 @@ import GET_INIT_DATA from '../constants'
 import {getHashOffersRoute, getAllDataRoute, getInitRoutesUrls} from '../constants/routes'
 
 import base64 from 'base-64';
-
+import axios from 'axios';
+import cors from 'cors';
 
 export const addNewUser = () => {
     const username = `@${faker.internet.userName().toLowerCase()}`
@@ -93,13 +94,18 @@ export const getInitRoutes = () => {
     }
 };
 
-export const getInitData = () => {
+export const getInitData = (url) => {
 
-    console.log('current request is getInitData')
+    console.log('current request is getInitData url is', url)
+
+    url = url || getAllDataRoute();
+
 
     return {
         type: 'GET_INIT_DATA',
-        payload: fetch(getAllDataRoute())
+        payload: axios.get(url, cors,
+            // {mode: 'cors'}
+            )
             .then(response => {
                 if (response.ok) {
 

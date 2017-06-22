@@ -55,13 +55,16 @@ export const getInitRoutes = () => {
     }
 };
 
-export const getInitData = () => {
+export const getInitData = (url) => {
 
-    console.log('current request is getInitData')
+    // console.log('current request is getInitData url is', url)
+
+    url = url || getAllDataRoute();
+    // console.log('current request is getInitData url is', url)
 
     return {
         type: 'GET_INIT_DATA',
-        payload: fetch(getAllDataRoute())
+        payload: fetch(url, cors )
             .then(response => {
                 if (response.ok) {
 
@@ -142,7 +145,7 @@ export const getToken = (baseUrl) => {
         )
             .then(response => {
 
-                console.log('response',response)
+                console.log('response', response)
 
                 if (response.status == 200) {
 
@@ -182,7 +185,7 @@ export const checkLogin = (baseUrl, token, login) => {
         )
             .then(response => {
 
-                console.log('response',response)
+                console.log('response', response)
 
                 if (response.status == 200) {
 
@@ -215,15 +218,15 @@ export const sendCode = (baseUrl) => {
 
     return {
         type: 'SEND_CODE',
-        payload: axios.post(url,cors, {
+        payload: axios.post(url, cors, {
                 body: data,
                 method: 'POST', mode: 'cors'
             }
         )
             .then(response => {
-                if (response.ok) {
+                if (response.status == 200) {
 
-                    return response.json();
+                    return response.data;
 
                 }
                 else {
@@ -258,9 +261,9 @@ export const resendCode = (baseUrl) => {
             }
         )
             .then(response => {
-                if (response.ok) {
+                if (response.status == 200) {
 
-                    return response.json();
+                    return response.data;
 
                 }
                 else {
@@ -275,23 +278,62 @@ export const resendCode = (baseUrl) => {
     }
 };
 
-export const showMap = () => {
+export const sendSession = (baseUrl,token) => {
+
+    console.log('current request is sendSession')
+
+    let url = baseUrl + '/session/';
+
+    url = url+ '?token='+token; //@toDo - delete
+
+    console.log('url is:', url)
+
+    let data = new FormData();
+    data.append("token", token);
+
     return {
-        type: 'SHOW_MAP'
+        type: 'SEND_SESSION',
+        payload: axios.get(url, cors, { // @toDo to post
+              //  body: data,
+                //, mode: 'cors'
+            }
+        )
+            .then(response => {
+                if (response.status == 200) {
+
+                    return response.data;
+
+                }
+                else {
+                    return Promise.reject();
+                }
+            })
+            .then(json => {
+                return Promise.resolve(json)
+            })
+
+
     }
 };
 
-export const showSearch = () => {
+export const setRequestData = (reqData) => {
 
-    return {
-        type: 'SHOW_SEARCH'
+    console.log('InitRegData SETTING', reqData)
+
+    let [course = null, shift = null, ds = null, df = null] = reqData;
+
+    if (ds) {
+        ds = new Date(ds);
     }
-};
 
-export const selectCountries = (selected) => {
+    if (df) {
+        df = new Date(df);
+    }
+
+
 
     return {
-        type: 'SELECT_COUNTRIES',
-        selected
+        type: 'SET_REQUEST_DATA',
+        course, shift, ds, df
     }
 };

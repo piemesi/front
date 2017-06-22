@@ -1,7 +1,7 @@
 import constants from '../constants'
 
 const Pages ={
-    num: '1'
+    num: 'first'
 };
 
 const PageNavigatorReducer = (state = Pages, action) => {

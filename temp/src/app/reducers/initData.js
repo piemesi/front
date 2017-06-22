@@ -70,6 +70,21 @@ const initDataReducer = (state = {}, action) => { //state = {courseType,shift}
             }
             break;
 
+        case 'SEND_SESSION_FULFILLED':
+            console.log('fulfiled', action)
+            return {
+                ...state,
+                ...action.payload
+            }
+            break;
+        case `SEND_SESSION_REJECTED`:
+            console.log('rejected', action)
+            return {
+                ...state,
+
+            }
+            break;
+
         case 'GET_INIT_DATA_FULFILLED':
             console.log('fulfiled', action)
             return {
@@ -106,6 +121,19 @@ const initDataReducer = (state = {}, action) => { //state = {courseType,shift}
             }
             break;
 
+
+        case `SET_REQUEST_DATA`:
+            console.log('SET_REQUEST_DATA', action)
+            return {
+                ...state,
+               requestData: {
+                   course: action.course,
+                   shift: action.shift,
+                   ds: action.ds,
+                   df: action.df,
+               }
+            }
+            break;
 
         case constants.SELECT_COUNTRIES:
 

@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
-import {lightBlue800,white, cyan800, cyan900} from 'material-ui/styles/colors';
+import {lightBlue800, white, cyan800, cyan900} from 'material-ui/styles/colors';
 import FontIcon from 'material-ui/FontIcon'
 import Paper from 'material-ui/Paper';
 import FlatButton from 'material-ui/FlatButton';
 import FontAwesome from 'react-fontawesome';
-import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
+import {BrowserRouter, Route, Switch, Link} from 'react-router-dom';
 /**
  * With the `maxHeight` property set, the Select Field will be scrollable
  * if the number of items causes the height to exceed this limit.
@@ -15,13 +15,19 @@ import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import EmailPageBtn from '../EmailPageBtn';
 
 
+// REDUX
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {getInitRoutes, getInitData, getToken} from '../../../actions'
+
+
 const styles = {
     uploadButton: {
         verticalAlign: 'middle',
-        border:'1px solid', borderRadius:'3px', marginTop:'35px',
+        border: '1px solid', borderRadius: '3px', marginTop: '35px',
         borderColor: white,
-        marginBottom:'27px',
-        paddingBottom:'36px'
+        marginBottom: '27px',
+        paddingBottom: '36px'
     },
     uploadInput: {
         cursor: 'pointer',
@@ -35,53 +41,65 @@ const styles = {
 
     },
 };
-export default class LoginBlock extends Component {
+ class LoginBlock extends Component {
 
     nextPage() {
 
     }
 
+
+    vkPage = () => {
+        let vkPage = this.props.initData['send_data_url'] || '/page_not_found';
+        console.log('vkPage', vkPage)
+        window.location.href = vkPage + '/social/vk/';
+    }
+
     render() {
 
-        const text = () => {  return  (this.props.page == 1)  ?  'Войдите для оформления заявки'  : 'Войдите как родитель ученика ОЦ "Сириус"'}
+        const text = () => {
+            return (this.props.page == 'first') ? 'Войдите для оформления заявки' : 'Войдите как родитель ученика ОЦ "Сириус"'
+        }
 
-        const nextPageLink = () => {  return this.props.page == 1  ? "/page/2" : "/mobile/6" };
+        const nextPageLink = () => {
+            return this.props.page == 'first' ? this.vkPage : "/mobile/6"
+        };
 
 
         return (
             <div>
 
                 <main className="sso-form">
-                    <Paper   zDepth={3} rounded={false} className="sso-form__layout sso-form__login-form sso-paper"  >
+                    <Paper zDepth={3} rounded={false} className="sso-form__layout sso-form__login-form sso-paper">
                         <h1 className="form__title">
                             Войдите <br/> для оформления заявки
                         </h1>
 
 
-                        <Link to={nextPageLink()}><RaisedButton
+                        {/*<Link to={nextPageLink()}></Link>*/}
+                        <RaisedButton
                             fullWidth={true}
                             // href="https://github.com/callemall/material-ui"
+                            onClick={this.vkPage}
                             target="_blank"
-                            label="Войти как Алексей"
+                            label=" Войти"
                             labelColor={white}
-                            labelStyle={{letterSpacing:"0.7px"}}
-                            buttonStyle={{border:'none', borderRadius:'0px'}}
+                            labelStyle={{letterSpacing: "0.7px"}}
+                            buttonStyle={{border: 'none', borderRadius: '0px'}}
                             // secondary={true}
                             className="login-form__vk"
-                            overlayStyle={{backgroundColor:"#507298",border:'none', borderRadius:'0px'}}
-                            icon={<FontAwesome spin="" onClick={this.props.nextPage} name="vk" size="2x" style={{color:white}}/>}
-                        /></Link>
+                            overlayStyle={{backgroundColor: "#507298", border: 'none', borderRadius: '0px'}}
+                            icon={<FontAwesome spin="" onClick={this.props.nextPage} name="vk" size="2x"
+                                               style={{color: white}}/>}
+                        />
                         <div className="login-form__line">
                             <span>или</span>
                         </div>
 
-                         <EmailPageBtn />
+                        <EmailPageBtn />
 
 
                     </Paper>
                 </main>
-
-
 
 
             </div>
@@ -89,3 +107,19 @@ export default class LoginBlock extends Component {
     }
 }
 
+
+const mapStateToProps = (state) => {
+    return {
+        initData: state.initDataReducer,
+        currentPage: state.pageReducer
+    }
+}
+
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getInitRoutes: bindActionCreators(getInitRoutes, dispatch),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginBlock)

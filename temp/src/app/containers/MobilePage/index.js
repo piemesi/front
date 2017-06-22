@@ -28,7 +28,7 @@ import './mobile.scss'
 // REDUX
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {getInitRoutes, getInitData, getToken} from '../../actions'
+import {getInitRoutes, getInitData, getToken, setCurrentPage, setRequestData, sendSession} from '../../actions'
 
 const styles = {
     container: {
@@ -86,36 +86,96 @@ import Page5 from './Page5'
 
 
 import EmailPage from './EmailPage'
+import AuthSuccess from './AuthSuccess'
 
 import NotFound from '../NotFound'
 
- import queryString from 'query-string'
+import queryString from 'query-string'
 import Header from "../../components/Header/index";
 
 class StartPage extends Component {
 
 
-
     constructor(props, context) {
         super(props, context);
 
-        console.log('location_props',context);
-        let parsed = queryString.parse(history.location);
-        console.log('location_props',history.location); // replace param with your own
+        this.props.getInitRoutes();
+
+        // let parsed = queryString.parse(history.location);
+
+        if (this.props.extData) {
+            this.props.setRequestData(this.props.extData)
+        }
+
+        this.sendSessionFn()
+
 
         this.state = {
             open: false,
-            renderPage:
-                {"1":<Page_1 page="1"/>,
-                    email:<EmailPage page="1"/>}
+            renderPage: {
+                first: <Page_1 page="1"/>,
+                email: <EmailPage page="1"/>,
+                auth: <AuthSuccess page="1"/>,
+                authError: 'error while auth',
+                successPage: <AuthSuccess success={true}/>
+            }
+
         };
 
 
+
+
     }
 
-    componentWillMount(){
-        this.props.getInitRoutes();
+    getInitDataFn() {
+        this.props.getInitData(this.props.initData['init_data_url']);
     }
+
+    sendSessionFn() {
+        if (this.props.cancelVK) {
+            console.log('cancel VK!!!!!!!')
+            this.props.setCurrentPage('first')
+        } else if (this.props.authVKHash) {
+            console.log('authVKHash!!!!!!!')
+            this.props.setCurrentPage('auth')
+            if (!this.props.initData['send_data_url']) {
+                setTimeout(() => {
+                    console.log('where to send', this.props.initData)
+                    let finalToken = this.props.sendSession(this.props.initData['send_data_url'], this.props.authVKHash);
+                    console.log('Final Token is', finalToken);
+                    finalToken.then(response => {
+
+                        console.log('PROMISE SEND SESSION RESP', response)
+
+                        if (!response.value.token) {
+                            this.props.setCurrentPage('authError')
+                        } else {
+                            window.sessionStorage.setItem('tkn', response.value.token)
+                            this.props.setCurrentPage('successPage')
+
+
+                        }
+                    })
+
+
+                }, 350)
+            }
+
+
+        }
+    }
+
+    componentWillMount() {
+
+
+
+
+
+        if (!this.props.initData['init_data_url']) {
+            setTimeout(this.getInitDataFn.bind(this), 350)
+        }
+    }
+
 
     handleRequestClose = () => {
         this.setState({
@@ -129,43 +189,6 @@ class StartPage extends Component {
         });
     };
 
-    renderPageFn() {
-
-
-
-
-        const {pageNum, currentPage} = this.props;
-console.log('ppp', this.props)
-
-        switch (currentPage.num) {
-            case '1':
-                console.log('this Page is',this.props)
-                return <Page_1 page="1"/>;
-                break;
-            case '2':
-                return <Page5 page="5"/>;
-                break;
-            case '3':
-                return <Page2 page="3"/>;
-                break;
-            case '4':
-                return <Page1/>;
-                break;
-            case '5':
-                return <Page2 page="2"/>;
-                break;
-            case 'email':
-                return <EmailPage page="1"/>;
-                break;
-            default:
-                return <NotFound/>;
-                break;
-
-        }
-        //`$(this.props.pageNum)`
-
-
-    }
 
     render() {
         const standardActions = (
@@ -188,9 +211,9 @@ console.log('ppp', this.props)
 
                     <div className="page-wrap" style={{width: "100%", fontFamily: "'Roboto', sans-serif"}}>
 
-                       <Header/>
+                        <Header/>
 
-
+                        {this.props.currentPage.num}
                         {this.state.renderPage[this.props.currentPage.num] || <NotFound/>}
 
 
@@ -209,7 +232,6 @@ console.log('ppp', this.props)
                         </footer>
 
 
-
                     </div>
                 </MuiThemeProvider>
             </div>
@@ -217,7 +239,6 @@ console.log('ppp', this.props)
         );
     }
 }
-
 
 
 const mapStateToProps = (state) => {
@@ -230,8 +251,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        setRequestData: bindActionCreators(setRequestData, dispatch),
         getInitRoutes: bindActionCreators(getInitRoutes, dispatch),
-        // getInitData: bindActionCreators(getInitData, dispatch),
+        setCurrentPage: bindActionCreators(setCurrentPage, dispatch),
+        getInitData: bindActionCreators(getInitData, dispatch),
+        sendSession: bindActionCreators(sendSession, dispatch),
     }
 }
 
