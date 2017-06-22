@@ -7,18 +7,31 @@ import {Link} from 'react-router-dom';
 import _ from 'lodash';
 
 
+
+// REDUX
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {getInitRoutes, getInitData, setCurrentPage, setCourse, setShift} from '../../../actions'
+
 /**
  * With the `maxHeight` property set, the Select Field will be scrollable
  * if the number of items causes the height to exceed this limit.
  */
-export default class SelectFieldEx extends Component {
+ class SelectFieldEx extends Component {
 
 
     constructor(props) {
         super(props);
 
+        this.selected=false;
+
+        let externalCourse = parseInt(this.props.pageData.course);
 
         this.items = this.props.initData.courseType.map((m) => {
+            if(m.id === externalCourse){
+                this.selected = true;
+            }
+
             return <MenuItem value={m.id} key={m.id} primaryText={m.title}/>;
         });
 
@@ -89,18 +102,36 @@ export default class SelectFieldEx extends Component {
         };
 
 
+
+
+
+    }
+
+    componentDidMount() {
+        this.props.setShift(this.state.shiftItems);
+        if(this.selected) {
+            console.log("this.props.pageData",this.props.pageData)
+
+            this.changeCourseType(parseInt(this.props.pageData.course));//.bind(this)
+        }
+
+
     }
 
 
     handleChange = (event, index, value) => {
 
         this.setState({shiftItems: value});
+        this.props.setShift(value);
     };
 
-    handleChangeDirection = (event, index, value) => {
+
+    changeCourseType=(value)=>{
+
+        console.log('courseSelected:',value)
         let currentShiftSelected = null
         this.itemsCourseType = [];
-        this.props.initData.shift.map((item, index) => {
+        this.props.initData.shift.map((item) => {
             // search related book to author
             if (item.course_type === value) {
 
@@ -143,14 +174,25 @@ export default class SelectFieldEx extends Component {
                 let title = item.course_type == 7 ? dateDs.toLocaleString("ru", options1) + " - " + dateDf.toLocaleString("ru", options2) : item.title;
 
                 currentShiftSelected = currentShiftSelected || item.id;
+                this.props.setShift(currentShiftSelected);
                 this.itemsCourseType.push(<MenuItem value={item.id} key={item.id} primaryText={title}/>);
                 //+' ('+item.ds+'-'+item.df+')'
             }
         })
 
+
         // this.setState({value});
 
         this.setState({value: value, itemsCourseType: this.itemsCourseType, shiftItems: currentShiftSelected});
+
+    }
+
+
+
+
+    handleChangeDirection = (event, index, value) => {
+        this.changeCourseType(value)
+        this.props.setCourse(value);
     };
 
     render() {
@@ -189,3 +231,23 @@ export default class SelectFieldEx extends Component {
 }
 
 
+const mapStateToProps = (state) => {
+    return {
+        initData: state.initDataReducer,
+        pageData: state.pageReducer
+    }
+}
+
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getInitRoutes: bindActionCreators(getInitRoutes, dispatch),
+        getInitData: bindActionCreators(getInitData, dispatch),
+        setCurrentPage: bindActionCreators(setCurrentPage, dispatch),
+        setCourse: bindActionCreators(setCourse, dispatch),
+        setShift: bindActionCreators(setShift, dispatch),
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(SelectFieldEx)

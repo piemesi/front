@@ -9,6 +9,14 @@ import {
 
 import './routing.scss'
 
+
+
+// REDUX
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {getInitRoutes, getInitData, setCurrentPage, setCourse} from '../actions'
+
+
 const AnimationRouting = () => (
 	<Router>
 
@@ -16,14 +24,14 @@ const AnimationRouting = () => (
 
         <Route render={({ location }) => (
 			<div style={styles.fill}>
-				<Route exact path="*"
+				{/*<Route exact path="*"*/}
 
 
-				    render={() => (
-					 <Redirect to="/science/1"/>
-                  )}
+				    {/*render={() => (*/}
+					 {/*<Redirect to="/science/1"/>*/}
+                  {/*)}*/}
 
-				/>
+				{/*/>*/}
 
 
 
@@ -39,10 +47,10 @@ const AnimationRouting = () => (
 						 so it can match the old location
 						 as it animates out
 						 */}
-						<Route
+						<Route path="*"
 							location={location}
 							key={location.key}
-							path="/:screenType/:pageNum"
+							// path="/:screenType/:pageNum"
 							component={HSL}
 						/>
 					</CSSTransitionGroup>
@@ -60,12 +68,14 @@ const NavLink = (props) => (
 
 import Page from '../containers/MobilePage'
 
-const HSL = ({ match: { params } }) => (
+const HSL = (props) => { //{ match: { params } }
+    const params = new URLSearchParams(props.location.search);
+    const course = params.get('course') || 0; // bar
+    console.log('course',course)
+	return <Page screenType='course-type' pageNum="1" course={course} />
 
-<Page screenType={params.screenType} pageNum={params.pageNum} />
 
-
-)
+}
 
 //
 // style={{
@@ -114,4 +124,25 @@ styles.hsl  = {
     // fontSize: '30px'
 }
 
-export default AnimationRouting
+
+
+const mapStateToProps = (state) => {
+    return {
+        initData: state.initDataReducer
+    }
+}
+
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getInitRoutes: bindActionCreators(getInitRoutes, dispatch),
+        getInitData: bindActionCreators(getInitData, dispatch),
+        setCourse: bindActionCreators(setCourse, dispatch),
+
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(AnimationRouting)
+
+

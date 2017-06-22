@@ -25,6 +25,10 @@ import './style.scss'
 import './mobile.scss'
 
 
+// REDUX
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {getInitRoutes, getInitData, setCourse} from '../../actions'
 const styles = {
     container: {
         textAlign: 'center',
@@ -91,9 +95,23 @@ class StartPage extends Component {
 
         super(props, context);
 
+        if(this.props.course)
+        {
+            this.props.setCourse(this.props.course)
+        }
+
+
+
         this.state = {
             open: false,
+            renderPage:
+                {"1":<InitPage page="1"/>,
+                    "2":<InitPage page="2"/>}
         };
+    }
+
+    componentWillMount(){
+        this.props.getInitRoutes();
     }
 
     handleRequestClose = () => {
@@ -108,7 +126,7 @@ class StartPage extends Component {
         });
     };
 
-    renderPage() {
+    renderPageFn() {
 
 
         // console.log('screen',this.props)
@@ -170,7 +188,8 @@ class StartPage extends Component {
                         <Header />
 
 
-                        {this.renderPage()}
+                        {this.state.renderPage[this.props.currentPage.num] || <NotFound/>}
+
 
 
 
@@ -202,5 +221,23 @@ class StartPage extends Component {
 }
 
 
-export default StartPage;
+
+const mapStateToProps = (state) => {
+    return {
+        initData: state.initDataReducer,
+        currentPage: state.pageReducer
+    }
+}
+
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getInitRoutes: bindActionCreators(getInitRoutes, dispatch),
+        setCourse: bindActionCreators(setCourse, dispatch),
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(StartPage)
+
 

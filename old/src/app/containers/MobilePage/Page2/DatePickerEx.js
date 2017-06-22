@@ -4,6 +4,7 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import DatePicker from 'material-ui/DatePicker';
 
+import moment from 'moment';
 
 import MenuItem from 'material-ui/MenuItem';
 
@@ -13,31 +14,17 @@ import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
- const fields = [
-    {id:1,title:'Наука'},
-    {id:2,title:'Творчество'},
-    {id:3,title:'Образование'},
-    {id:4,title:'Спорт'},
 
-];
- const items=[];
-items.push(<MenuItem value={null} key={0} primaryText=""/>)
-fields.map((m) => {
-    items.push(<MenuItem value={m.id} key={m.id} primaryText={m.title}/>);
-});
 
-const fields2 = [
-    {id:1,title:'Математическая смена'},
-    {id:2,title:'Творчество'},
-    {id:3,title:'Образование'},
-    {id:4,title:'Спорт'},
 
-];
-const items2=[];
-items2.push(<MenuItem value={null} key={0} primaryText=""/>)
-fields2.map((m) => {
-    items2.push(<MenuItem value={m.id} key={m.id} primaryText={m.title}/>);
-});
+
+// REDUX
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {getInitRoutes, getInitData, setCurrentPage, setCourse, setShift, setPeriod} from '../../../actions'
+
+
+
 
 /** Ru-locale*/
 import areIntlLocalesSupported from 'intl-locales-supported';
@@ -90,13 +77,16 @@ class DatePickerEx extends Component {
 
 
             this.muiTheme = props.muiTheme
+        // let today = moment();
+        // const maxDate = moment(today).add(21, 'days');
+        // const minDate = moment(today).add(1, 'days');
 
 
         const minDate = new Date();
         const maxDate = new Date();
-        minDate.setFullYear(minDate.getFullYear() - 1);
+        minDate.setDate(minDate.getDate()+1) //setFullYear(minDate.getFullYear() - 1);
         minDate.setHours(0, 0, 0, 0);
-        maxDate.setFullYear(maxDate.getFullYear() + 1);
+        maxDate.setDate(minDate.getDate()+22)//setFullYear(maxDate.getFullYear() + 1);
         maxDate.setHours(0, 0, 0, 0);
 
         this.state = {
@@ -111,12 +101,15 @@ class DatePickerEx extends Component {
         this.setState({
             minDate: date,
         });
+        this.props.setPeriod({start:date.toString(), end:  this.state.maxDate.toString() })
     };
 
     handleChangeMaxDate = (event, date) => {
         this.setState({
             maxDate: date,
         });
+        this.props.setPeriod({start: this.state.minDate.toString() , end:  date.toString()  })
+
     };
 
     handleToggle = (event, toggled) => {
@@ -168,4 +161,26 @@ class DatePickerEx extends Component {
     }
 
 
-export default muiThemeable()(DatePickerEx);
+const withMui = muiThemeable()(DatePickerEx);
+
+
+const mapStateToProps = (state) => {
+    return {
+        initData: state.initDataReducer,
+        pageData: state.pageReducer
+    }
+}
+
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getInitRoutes: bindActionCreators(getInitRoutes, dispatch),
+        getInitData: bindActionCreators(getInitData, dispatch),
+        setCurrentPage: bindActionCreators(setCurrentPage, dispatch),
+        setCourse: bindActionCreators(setCourse, dispatch),
+        setShift: bindActionCreators(setShift, dispatch),
+        setPeriod: bindActionCreators(setPeriod, dispatch),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withMui)

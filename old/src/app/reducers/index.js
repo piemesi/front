@@ -5,9 +5,10 @@ import { combineReducers } from 'redux'
 // import searchReducer from './search'
 // import footerReducer from './footer'
 import initDataReducer from './initData'
+import pageReducer from './page'
 
 const myReducer = combineReducers({
-
+    pageReducer,
     initDataReducer
 
     // footerReducer,

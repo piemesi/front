@@ -1,8 +1,8 @@
 import faker from 'faker'
 import GET_INIT_DATA from '../constants'
-import {getHashOffersRoute, getAllDataRoute,getInitRoutesUrls } from '../constants/routes'
+import {getHashOffersRoute, getAllDataRoute, getInitRoutesUrls} from '../constants/routes'
 
-
+import base64 from 'base-64';
 
 
 export const addNewUser = () => {
@@ -38,7 +38,7 @@ export const getHashOffers = () => {
             type: constants.GET_HASH_OFFERS,
             payload: fetch(getHashOffersRoute())
                 .then(response => {
-                    if( response.ok ) {
+                    if (response.ok) {
                         return response.json()
                     }
                     else {
@@ -74,13 +74,13 @@ export const selectCountries = (selected) => {
 };
 
 export const getInitRoutes = () => {
+    console.log('GIR', getInitRoutesUrls())
 
- 
     return {
         type: 'GET_INIT_ROUTES',
         payload: fetch(getInitRoutesUrls())
             .then(response => {
-                if( response.ok ) {
+                if (response.ok) {
                     return response.json()
                 }
                 else {
@@ -99,11 +99,11 @@ export const getInitData = () => {
 
     return {
         type: 'GET_INIT_DATA',
-        payload:fetch(getAllDataRoute())
+        payload: fetch(getAllDataRoute())
             .then(response => {
-                if( response.ok ) {
+                if (response.ok) {
 
-                     return response.json();///
+                    return response.json();///
 
                 }
                 else {
@@ -115,8 +115,50 @@ export const getInitData = () => {
             })
 
 
-
     }
 };
 
 
+export const setCurrentPage = (page) => {
+    return {
+        type: 'SET_PAGE',
+        page
+    }
+};
+
+
+export const setCourse = (course) => {
+    return {
+        type: 'SET_COURSE',
+        course
+    }
+};
+
+export const setShift = (shift) => {
+    return {
+        type: 'SET_SHIFT',
+        shift
+    }
+};
+
+export const setPeriod = (period) => {
+    return {
+        type: 'SET_PERIOD',
+        period
+    }
+};
+
+export const sendData = (state) => {
+
+    let {course, shift, period} = state;
+
+
+    let data = [course, shift, period.start || null,period.end || null];
+    let link = base64.encode(data);
+
+    console.log('finalLink is', link);
+    return {
+        type: 'SEND_DATA',
+        link
+    }
+};
