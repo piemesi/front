@@ -90,6 +90,7 @@ import EmailPage from './EmailPage'
 import NotFound from '../NotFound'
 
  import queryString from 'query-string'
+import Header from "../../components/Header/index";
 
 class StartPage extends Component {
 
@@ -187,18 +188,7 @@ console.log('ppp', this.props)
 
                     <div className="page-wrap" style={{width: "100%", fontFamily: "'Roboto', sans-serif"}}>
 
-                        <header className="sso-header">
-                            <div className="sso-header__name">
-                            <span className="name-main">
-                                СИРИУС
-                            </span>
-                                <br/>
-                                <span className="name-info">
-                                ОНЛАЙН
-                            </span>
-                            </div>
-                            <div className="sso-header__info">СРЕДА <br/> ДИСТАНЦИОННОГО <br/> ОБРАЗОВАНИЯ</div>
-                        </header>
+                       <Header/>
 
 
                         {this.state.renderPage[this.props.currentPage.num] || <NotFound/>}

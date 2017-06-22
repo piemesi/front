@@ -122,9 +122,10 @@ export const getToken = (baseUrl) => {
         // })
 
 
-        payload: axios(url, cors, {
+        payload: axios.post(url, cors, {
                 // body: data,
-                method: 'POST', mode: 'cors',
+                method: 'POST',
+                mode: 'cors',
                 // headers: {
                 //     'Access-Control-Allow-Origin': '*',
                 //     "Content-Type": "application/json; charset=UTF-8",
@@ -162,7 +163,7 @@ export const getToken = (baseUrl) => {
 
 export const checkLogin = (baseUrl, token, login) => {
 
-    console.log('current request is checkLogin')
+    console.log('current request   is checkLogin')
 
     let url = baseUrl + '/login/';
 
@@ -174,9 +175,9 @@ export const checkLogin = (baseUrl, token, login) => {
 
     return {
         type: 'CHECK_LOGIN',
-        payload: axios(url, cors, {
+        payload: axios.post(url, cors, {
                 body: data,
-                method: 'POST', mode: 'no-cors'
+                method: 'POST', mode: 'cors'
             }
         )
             .then(response => {
@@ -214,9 +215,9 @@ export const sendCode = (baseUrl) => {
 
     return {
         type: 'SEND_CODE',
-        payload: axios(url,cors, {
+        payload: axios.post(url,cors, {
                 body: data,
-                method: 'POST', mode: 'no-cors'
+                method: 'POST', mode: 'cors'
             }
         )
             .then(response => {
@@ -251,9 +252,9 @@ export const resendCode = (baseUrl) => {
 
     return {
         type: 'RESEND_CODE',
-        payload: fetch(url, {
+        payload: axios.post(url, {
                 body: data,
-                method: 'POST', mode: 'no-cors'
+                method: 'POST', mode: 'cors'
             }
         )
             .then(response => {

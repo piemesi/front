@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom'
 
 import './routing.scss'
-
+import base64 from 'base-64';
 
 import Video from '../containers/Video'
 
@@ -64,13 +64,24 @@ const HSL = (  props    ) => {
     const shift = params.get('shift'); // bar
     console.log('shift',shift)
 
+    let dataO = base64.decode(shift);
+    console.log('data origin',dataO.toString())
+	let extData=dataO.toString().split(',')
+    console.log('data origin arr',extData)
+
+
+
+
+    // let data = base64.decode(link);
+    // console.log('data',data)
+
     const videos =  [
             {src:'http://cdn.online-convert.com/example-file/video/mp4/example_2s.mp4',
                 type:'video/mp4'
             }
         ];
 	return <Video overlayElement={<Page screenType='page' pageNum='1'
-
+extData = {extData}
 	/>}
 
 		   videos={videos}

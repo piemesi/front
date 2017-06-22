@@ -19,7 +19,19 @@ export default class Header extends Component {
 		}
 
 		return (
-			<AppBar title={ <HeaderTitle /> } showMenuIconButton={false} />
+			<header className="sso-header">
+				<div className="sso-header__name">
+					<img className="sso-footer__left-section-em" src="/images/logo.png"/>
+                            {/*<span className="name-main">*/}
+                                {/*СИРИУС*/}
+                            {/*</span>*/}
+					{/*<br/>*/}
+					{/*<span className="name-info">*/}
+                                {/*ОНЛАЙН*/}
+                            {/*</span>*/}
+				</div>
+				{/*<div className="sso-header__info">СРЕДА <br/> ДИСТАНЦИОННОГО <br/> ОБРАЗОВАНИЯ</div>*/}
+			</header>
 		)
 	}
 }
