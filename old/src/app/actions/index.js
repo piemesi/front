@@ -103,9 +103,7 @@ export const getInitData = (url) => {
 
     return {
         type: 'GET_INIT_DATA',
-        payload: axios.get(url, cors,
-            // {mode: 'cors'}
-            )
+        payload: fetch(url)
             .then(response => {
                 if (response.ok) {
 

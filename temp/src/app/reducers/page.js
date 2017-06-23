@@ -6,7 +6,7 @@ const Pages ={
 
 const PageNavigatorReducer = (state = Pages, action) => {
 
-    console.log('action is',action)
+
 
     switch (action.type) {
         case "SET_PAGE":

@@ -73,7 +73,7 @@ export default class LoginBlock extends Component {
                             // secondary={true}
                             className="login-form__vk"
                             overlayStyle={{backgroundColor:"#507298",border:'none', borderRadius:'0px'}}
-                            icon={<FontAwesome spin="" onClick={this.props.nextPage} name="vk" size="2x" style={{color:white}}/>}
+                            icon={<FontAwesome   onClick={this.props.nextPage} name="vk" size="2x" style={{color:white}}/>}
                         />
                         <div className="login-form__line">
                             <span>или</span>

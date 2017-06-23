@@ -14,12 +14,12 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/routing/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="256">
-              <caret line="101" column="70" lean-forward="false" selection-start-line="101" selection-start-column="70" selection-end-line="101" selection-end-column="70" />
+            <state relative-caret-position="261">
+              <caret line="107" column="37" lean-forward="false" selection-start-line="107" selection-start-column="37" selection-end-line="107" selection-end-column="37" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -30,8 +30,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/actions/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="284">
-              <caret line="300" column="26" lean-forward="true" selection-start-line="300" selection-start-column="12" selection-end-line="300" selection-end-column="26" />
+            <state relative-caret-position="1837">
+              <caret line="216" column="30" lean-forward="true" selection-start-line="216" selection-start-column="30" selection-end-line="216" selection-end-column="30" />
               <folding>
                 <element signature="e#29#65#0" expanded="true" />
               </folding>
@@ -39,12 +39,16 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="init_routes.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/www/init_routes.json">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/containers/MobilePage/EmailPage/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="2" column="18" lean-forward="false" selection-start-line="2" selection-start-column="5" selection-end-line="2" selection-end-column="18" />
-              <folding />
+            <state relative-caret-position="17">
+              <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="52" />
+              <folding>
+                <element signature="e#325#371#0" expanded="true" />
+                <element signature="e#443#478#0" expanded="true" />
+                <element signature="e#640#1395#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -52,32 +56,22 @@
       <file leaf-file-name="initData.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/reducers/initData.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="27">
-              <caret line="61" column="33" lean-forward="true" selection-start-line="61" selection-start-column="33" selection-end-line="61" selection-end-column="33" />
+            <state relative-caret-position="-17">
+              <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/reducers/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="39" lean-forward="true" selection-start-line="0" selection-start-column="39" selection-end-line="0" selection-end-column="39" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/app/containers/MobilePage/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="392">
-              <caret line="109" column="28" lean-forward="false" selection-start-line="109" selection-start-column="28" selection-end-line="109" selection-end-column="28" />
+            <state relative-caret-position="457">
+              <caret line="180" column="62" lean-forward="false" selection-start-line="180" selection-start-column="0" selection-end-line="181" selection-end-column="0" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
                 <element signature="e#743#778#0" expanded="true" />
-                <element signature="e#1915#1956#0" expanded="true" />
+                <element signature="e#2146#2187#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -86,18 +80,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/containers/MobilePage/Page4/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/app.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="23" column="14" lean-forward="false" selection-start-line="23" selection-start-column="14" selection-end-line="23" selection-end-column="14" />
+            <state relative-caret-position="204">
+              <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -106,8 +90,8 @@
       <file leaf-file-name="page.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/reducers/page.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="13" column="18" lean-forward="true" selection-start-line="13" selection-start-column="18" selection-end-line="13" selection-end-column="18" />
+            <state relative-caret-position="136">
+              <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -116,10 +100,30 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/containers/MobilePage/AuthSuccess/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1008">
-              <caret line="10" column="42" lean-forward="false" selection-start-line="10" selection-start-column="35" selection-end-line="10" selection-end-column="42" />
+            <state relative-caret-position="383">
+              <caret line="88" column="49" lean-forward="true" selection-start-line="88" selection-start-column="49" selection-end-line="88" selection-end-column="49" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
+                <element signature="e#336#371#0" expanded="true" />
+                <marker date="1498175607155" expanded="true" signature="1900:3271" ph="..." />
+                <marker date="1498175607155" expanded="true" signature="1945:3252" ph="..." />
+                <marker date="1498175607155" expanded="true" signature="1980:1992" ph="..." />
+                <marker date="1498175607155" expanded="true" signature="2019:3228" ph="..." />
+                <marker date="1498175607155" expanded="true" signature="2139:2148" ph="..." />
+                <marker date="1498175607155" expanded="true" signature="3095:3105" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/app/containers/MobilePage/RequestTable/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="193">
+              <caret line="46" column="44" lean-forward="false" selection-start-line="46" selection-start-column="44" selection-end-line="46" selection-end-column="63" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+                <element signature="e#186#221#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -137,36 +141,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>300</find>
-      <find>3000</find>
-      <find>overlayElement</find>
-      <find>/</find>
-      <find>/p</find>
-      <find>/pa</find>
-      <find>/pag</find>
-      <find>/page</find>
-      <find>/page/</find>
-      <find>/page/2</find>
-      <find>A</find>
-      <find>Aktr</find>
-      <find>Akt</find>
-      <find>А</find>
-      <find>Але</find>
-      <find>Алек</find>
-      <find>nextPageLink</find>
-      <find>Алекс</find>
-      <find>getInitData</find>
-      <find>authVKHash</find>
-      <find>setRequestData</find>
-      <find>AuthPage</find>
-      <find>renderPage</find>
-      <find>sendSession</find>
-      <find>getInitRoutes</find>
-      <find>render</find>
-      <find>renderPa</find>
-      <find>1</find>
-      <find>extData</find>
-      <find>urrent request is getInitData</find>
+      <find>spin</find>
+      <find>G</find>
+      <find>GET</find>
+      <find>GET_</find>
+      <find>GET_T</find>
+      <find>GET_TO</find>
+      <find>GET_TOK</find>
+      <find>GET_TOKE</find>
+      <find>m</find>
+      <find>mu</find>
+      <find>mui</find>
+      <find>?later</find>
+      <find>stan</find>
+      <find>error</find>
+      <find>MaskedInput</find>
+      <find>RESEND_CODE</find>
+      <find>Отпр</find>
+      <find>resen</find>
+      <find>cooldownSeconds</find>
+      <find>resendCode</find>
+      <find>Войти</find>
+      <find>rbTitle</find>
+      <find>textFieldType</find>
+      <find>sendCod</find>
+      <find>sendCode</find>
+      <find>userEma</find>
+      <find>sendCo</find>
+      <find>fixedLogin</find>
+      <find>Время</find>
+      <find>getToken</find>
     </findStrings>
     <replaceStrings>
       <replace>./geometria</replace>
@@ -174,6 +178,7 @@
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src/app</dir>
+      <dir>$PROJECT_DIR$/src</dir>
     </dirStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -197,7 +202,6 @@
         <option value="$PROJECT_DIR$/src/app/containers/MobilePage/Page5/index.js" />
         <option value="$PROJECT_DIR$/src/app/containers/MobilePage/Page1/index.js" />
         <option value="$PROJECT_DIR$/src/app/containers/MobilePage/Page2/index.js" />
-        <option value="$PROJECT_DIR$/src/app/containers/MobilePage/EmailPage/index.js" />
         <option value="$PROJECT_DIR$/build/main.css" />
         <option value="$PROJECT_DIR$/webpack.config.js" />
         <option value="$PROJECT_DIR$/src/app/containers/MobilePage/Page2/DatePickerEx.js" />
@@ -210,21 +214,29 @@
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/webpack-dev-server.config.js" />
         <option value="$PROJECT_DIR$/src/app/components/Header/index.js" />
-        <option value="$PROJECT_DIR$/src/app/containers/MobilePage/RequestTable/index.js" />
-        <option value="$PROJECT_DIR$/src/www/init_routes.json" />
         <option value="$PROJECT_DIR$/src/app/containers/MobilePage/AuthPage/index.js" />
-        <option value="$PROJECT_DIR$/src/app/containers/MobilePage/AuthSuccess/index.js" />
+        <option value="$PROJECT_DIR$/src/app/containers/MobilePage/Page4/index.js" />
+        <option value="$PROJECT_DIR$/build/init_routes.json" />
+        <option value="$PROJECT_DIR$/src/www/init_routes.json" />
+        <option value="$PROJECT_DIR$/src/app/reducers/page.js" />
         <option value="$PROJECT_DIR$/src/app/reducers/initData.js" />
         <option value="$PROJECT_DIR$/src/app/actions/index.js" />
+        <option value="$PROJECT_DIR$/src/app/containers/MobilePage/EmailPage/index.js" />
         <option value="$PROJECT_DIR$/src/app/routing/index.js" />
-        <option value="$PROJECT_DIR$/src/app/reducers/page.js" />
-        <option value="$PROJECT_DIR$/src/app/containers/MobilePage/Page4/index.js" />
+        <option value="$PROJECT_DIR$/src/app/containers/MobilePage/AuthSuccess/index.js" />
+        <option value="$PROJECT_DIR$/src/app/containers/MobilePage/RequestTable/index.js" />
         <option value="$PROJECT_DIR$/src/app/containers/MobilePage/index.js" />
       </list>
     </option>
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsFlowSettings">
+    <service-enabled>false</service-enabled>
+    <exe-path />
+    <annotation-enable>false</annotation-enable>
+    <other-services-enabled>false</other-services-enabled>
+  </component>
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
@@ -253,8 +265,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -593,11 +603,13 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../old" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="nodejs_interpreter_path" value="/usr/bin/node" />
     <property name="list.type.of.created.stylesheet" value="SCSS" />
@@ -711,23 +723,25 @@
       <workItem from="1497512168664" duration="114000" />
       <workItem from="1497512305971" duration="47798000" />
       <workItem from="1498061203102" duration="23234000" />
+      <workItem from="1498159836891" duration="18070000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="73390000" />
+    <option name="totallyTimeSpent" value="91460000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="87" y="34" width="1508" height="964" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18700266" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41599074" sideWeight="0.5026525" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32949308" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.41599074" sideWeight="0.49734747" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.41589862" sideWeight="0.49734747" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -937,13 +951,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/reducers/pageNavigator.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="43" lean-forward="false" selection-start-line="6" selection-start-column="38" selection-end-line="6" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/reducers/pageNavigator.js" />
     <entry file="file://$PROJECT_DIR$/src/app/store/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
@@ -964,37 +972,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
           <caret line="27" column="18" lean-forward="false" selection-start-line="27" selection-start-column="18" selection-end-line="27" selection-end-column="18" />
-          <folding>
-            <marker date="1498115784680" expanded="true" signature="276:304" ph="{&quot;filename&quot;: 'main.css'...}" />
-            <marker date="1498115784680" expanded="true" signature="371:549" ph="{...}" />
-            <marker date="1498115784680" expanded="true" signature="387:542" ph="[...]" />
-            <marker date="1498115784680" expanded="true" signature="602:850" ph="{&quot;contentBase&quot;: 'src/www'...}" />
-            <marker date="1498115784680" expanded="true" signature="916:1022" ph="{&quot;filename&quot;: 'app.js'...}" />
-            <marker date="1498115784680" expanded="true" signature="1037:1289" ph="[...]" />
-            <marker date="1498115784680" expanded="true" signature="1304:1428" ph="{...}" />
-            <marker date="1498115784680" expanded="true" signature="1459:2748" ph="[...]" />
-            <marker date="1498115784680" expanded="true" signature="1473:1686" ph="{&quot;loader&quot;: 'babel-loader'...}" />
-            <marker date="1498115784680" expanded="true" signature="1610:1671" ph="{...}" />
-            <marker date="1498115784680" expanded="true" signature="1700:1867" ph="{...}" />
-            <marker date="1498115784680" expanded="true" signature="1778:1852" ph="{...}" />
-            <marker date="1498115784680" expanded="true" signature="1881:2048" ph="{...}" />
-            <marker date="1498115784680" expanded="true" signature="1959:2033" ph="{...}" />
-            <marker date="1498115784680" expanded="true" signature="2062:2228" ph="{...}" />
-            <marker date="1498115784680" expanded="true" signature="2138:2213" ph="{...}" />
-            <marker date="1498115784680" expanded="true" signature="2256:2374" ph="{&quot;loader&quot;: &quot;url-loader?limit=26000&amp;mimetype=image/svg+xml&quot;...}" />
-            <marker date="1498115784680" expanded="true" signature="2388:2595" ph="//..." />
-            <marker date="1498115784680" expanded="true" signature="2608:2738" ph="{&quot;loader&quot;: 'file?name=public/fonts/[name].[ext]'...}" />
-            <marker date="1498115784680" expanded="true" signature="2767:5097" ph="[...]" />
-            <marker date="1498115784680" expanded="true" signature="2781:2912" ph="{&quot;loader&quot;: &quot;babel&quot;...}" />
-            <marker date="1498115784680" expanded="true" signature="2927:3548" ph="//..." />
-            <marker date="1498115784680" expanded="true" signature="3561:3676" ph="{&quot;loader&quot;: &quot;url-loader?limit=10000&amp;mimetype=image/gif&quot;...}" />
-            <marker date="1498115784680" expanded="true" signature="3690:3805" ph="{&quot;loader&quot;: &quot;url-loader?limit=10000&amp;mimetype=image/jpg&quot;...}" />
-            <marker date="1498115784680" expanded="true" signature="3819:3934" ph="{&quot;loader&quot;: &quot;url-loader?limit=10000&amp;mimetype=image/png&quot;...}" />
-            <marker date="1498115784680" expanded="true" signature="3948:4066" ph="{&quot;loader&quot;: &quot;url-loader?limit=26000&amp;mimetype=image/svg+xml&quot;...}" />
-            <marker date="1498115784680" expanded="true" signature="4080:4222" ph="{&quot;loader&quot;: &quot;react-hot!babel&quot;...}" />
-            <marker date="1498115784680" expanded="true" signature="4236:4322" ph="{&quot;loader&quot;: &quot;json-loader&quot;...}" />
-            <marker date="1498115784680" expanded="true" signature="4336:4586" ph="//..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1018,15 +996,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="23" column="58" lean-forward="false" selection-start-line="23" selection-start-column="58" selection-end-line="23" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/containers/MobilePage/EmailPage/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-446">
-          <caret line="110" column="4" lean-forward="false" selection-start-line="110" selection-start-column="4" selection-end-line="114" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1042,15 +1011,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
           <caret line="12" column="8" lean-forward="false" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/init_routes.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1058,7 +1018,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1070,47 +1029,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/containers/MobilePage/RequestTable/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="15" column="22" lean-forward="true" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-            <element signature="e#186#221#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/containers/MobilePage/AuthSuccess/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1008">
-          <caret line="10" column="42" lean-forward="false" selection-start-line="10" selection-start-column="35" selection-end-line="10" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/www/init_routes.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="18" lean-forward="false" selection-start-line="2" selection-start-column="5" selection-end-line="2" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/reducers/initData.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27">
-          <caret line="61" column="33" lean-forward="true" selection-start-line="61" selection-start-column="33" selection-end-line="61" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/reducers/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="39" lean-forward="true" selection-start-line="0" selection-start-column="39" selection-end-line="0" selection-end-column="39" />
+          <caret line="0" column="39" lean-forward="false" selection-start-line="0" selection-start-column="39" selection-end-line="0" selection-end-column="39" />
           <folding />
         </state>
       </provider>
@@ -1119,62 +1041,125 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
           <caret line="12" column="55" lean-forward="false" selection-start-line="12" selection-start-column="42" selection-end-line="12" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="23" column="14" lean-forward="false" selection-start-line="23" selection-start-column="14" selection-end-line="23" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/init_routes.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="38" lean-forward="false" selection-start-line="2" selection-start-column="38" selection-end-line="2" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/www/init_routes.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="1" lean-forward="true" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/reducers/page.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="13" column="18" lean-forward="true" selection-start-line="13" selection-start-column="18" selection-end-line="13" selection-end-column="18" />
+        <state relative-caret-position="136">
+          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/reducers/initData.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-17">
+          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/containers/MobilePage/Page4/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+        <state relative-caret-position="204">
+          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/app.js">
+    <entry file="file://$PROJECT_DIR$/src/app/containers/MobilePage/EmailPage/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="23" column="14" lean-forward="false" selection-start-line="23" selection-start-column="14" selection-end-line="23" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/routing/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="101" column="70" lean-forward="false" selection-start-line="101" selection-start-column="70" selection-end-line="101" selection-end-column="70" />
+        <state relative-caret-position="17">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="52" />
           <folding>
-            <element signature="e#0#25#0" expanded="true" />
+            <element signature="e#325#371#0" expanded="true" />
+            <element signature="e#443#478#0" expanded="true" />
+            <element signature="e#640#1395#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/actions/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="300" column="26" lean-forward="true" selection-start-line="300" selection-start-column="12" selection-end-line="300" selection-end-column="26" />
+        <state relative-caret-position="1837">
+          <caret line="216" column="30" lean-forward="true" selection-start-line="216" selection-start-column="30" selection-end-line="216" selection-end-column="30" />
           <folding>
             <element signature="e#29#65#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/routing/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="107" column="37" lean-forward="false" selection-start-line="107" selection-start-column="37" selection-end-line="107" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/containers/MobilePage/AuthSuccess/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="383">
+          <caret line="88" column="49" lean-forward="true" selection-start-line="88" selection-start-column="49" selection-end-line="88" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#336#371#0" expanded="true" />
+            <marker date="1498175607155" expanded="true" signature="1900:3271" ph="..." />
+            <marker date="1498175607155" expanded="true" signature="1945:3252" ph="..." />
+            <marker date="1498175607155" expanded="true" signature="1980:1992" ph="..." />
+            <marker date="1498175607155" expanded="true" signature="2019:3228" ph="..." />
+            <marker date="1498175607155" expanded="true" signature="2139:2148" ph="..." />
+            <marker date="1498175607155" expanded="true" signature="3095:3105" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/containers/MobilePage/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="109" column="28" lean-forward="false" selection-start-line="109" selection-start-column="28" selection-end-line="109" selection-end-column="28" />
+        <state relative-caret-position="457">
+          <caret line="180" column="62" lean-forward="false" selection-start-line="180" selection-start-column="0" selection-end-line="181" selection-end-column="0" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
             <element signature="e#743#778#0" expanded="true" />
-            <element signature="e#1915#1956#0" expanded="true" />
+            <element signature="e#2146#2187#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/containers/MobilePage/RequestTable/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="46" column="44" lean-forward="false" selection-start-line="46" selection-start-column="44" selection-end-line="46" selection-end-column="63" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#186#221#0" expanded="true" />
           </folding>
         </state>
       </provider>

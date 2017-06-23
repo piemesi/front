@@ -1,42 +1,24 @@
 import React, {Component} from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import * as colors from 'material-ui/styles/colors';
-import FontIcon from 'material-ui/FontIcon'
+
 import Paper from 'material-ui/Paper';
 import FlatButton from 'material-ui/FlatButton';
-import FontAwesome from 'react-fontawesome';
-import {BrowserRouter, Route, Switch, Link} from 'react-router-dom';
+
 
 import Dialog from 'material-ui/Dialog';
 
+// import MaskedInput from 'react-text-mask'
 
 import TextField from 'material-ui/TextField';
-
-/**
- * With the `maxHeight` property set, the Select Field will be scrollable
- * if the number of items causes the height to exceed this limit.
- */
-import EmailPageBtn from '../EmailPageBtn';
+import muiThemeable from 'material-ui/styles/muiThemeable';
 
 
 // REDUX
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {getInitRoutes, getInitData, getToken, checkLogin} from '../../../actions'
+import {getInitRoutes, getInitData, getToken, checkLogin, resendCode, sendCode} from '../../../actions'
 
-const style = {
-
-    width: "360px",
-    padding: "0px 30px",
-    background: "linear-gradient(-125deg, #792B8E, #532F91)",
-    borderRadius: "2px",
-    // height: 100,
-    // width: 100,
-    // margin: 20,
-    // textAlign: 'center',
-    display: 'inline-block',
-    textAlign: "left"
-};
 const styles = {
     uploadButton: {
         verticalAlign: 'middle',
@@ -83,7 +65,7 @@ class EmailPage extends Component {
 
         this.sendOnceAgain = <FlatButton
             fullWidth={true}
-            onTouchTap={this.handleTouchTap}
+            onTouchTap={this.handleTouchTapReSend}
             label="Отправить пароль еще раз"
             labelPosition="before"
             labelStyle={{color: colors.deepOrangeA400}}
@@ -92,19 +74,22 @@ class EmailPage extends Component {
         />;
 
 
+        this.fixedLogin = null
+
         this.state = {
             h1: <h1 className="form__title">
                 Войдите <br/> для оформления заявки<br/>
             </h1>,
             open: false,
-            userEmail: "",
+            inputField: "",
             errorText: '',
             floatingLabel: "E-mail или телефон",
             textFieldType: null,
             rbTitle: 'Далее',
             cooldownSeconds: null,//coolDownSecs,
             displayBottomText: false,
-            bottomInfo: null
+            bottomInfo: null,
+            step: null
         };
     }
 
@@ -115,7 +100,8 @@ class EmailPage extends Component {
     };
 
 
-    timer = () => {
+    timerFn = () => {
+        console.log('Props', this.props)
         let s = this.state.cooldownSeconds || this.props.initData['ttl']
         if (s > 1) {
             this.setState({
@@ -128,54 +114,184 @@ class EmailPage extends Component {
                 cooldownSeconds: null, //coolDownSecs,
                 bottomInfo: this.sendOnceAgain
             });
-
-
         }
-
-
     }
 
     componentWillMount() {
-        this.props.getToken(this.props.initData['send_data_url']);
+        let promis = this.props.getToken(this.props.initData['send_data_url']);
+
+        promis.then(response => {
+            console.log('promise TOKEN RESP', response)
+
+            let {value} = response;
+
+            let step = value['next-step'] || value['current-step'] || null;
+            let token = value['token'] || null;
+            if (step !== 'login' || !token) {
+                window.location.href = '/?later=1'
+            }
+        })
+
+    }
+
+
+    processSendLoginResponse = (promis, resend) => {
+        promis.then(response => {
+            let act = resend ? 'RESEND' : 'LOGIN'
+            console.log('promise ' + act + ' RESP', response)
+
+            let {value} = response;
+
+
+            let error = value['error'] || null;
+            let step = value['next-step'] || value['current-step'] || null;
+            let method = value['method'] || null;
+            let ttl = value['ttl'] || null;
+            let eta = value['eta'] || null;
+
+            if (error) {
+                this.setState({errorText: 'Неверный формат [email или телефон]'})
+                return;
+            } else {
+
+                if (!resend && (step !== 'code' || !(method === 'email' || method === 'phone') || !ttl)) {
+                    window.location.href = '/?later=1'
+                }
+
+                if (resend && !eta) {
+                    window.location.href = '/?later=1'
+                }
+
+                if (!resend) {
+                    this.fixedLogin = this.state.inputField
+                }
+                setTimeout(() => {
+                    this.setState({
+                        h1: <h1 className="form__title">
+                            Введите пароль<br/>
+                            <span >который мы отправили {this.props.initData['method'] === 'phone' ? "на номер телефона" : "вам на"} {this.fixedLogin || this.state.inputField}</span>
+                        </h1>,
+                        open: true,
+                        errorText: '',
+                        textFieldType: 'password',
+                        floatingLabel: 'Пароль',
+                        rbTitle: "Войти",
+                        displayBottomText: true,
+                        bottomInfo: null,
+                        step: 'code',
+                        inputField: ''
+
+                    });
+
+                    this.timer = setInterval(this.timerFn, 1000);
+                }, 350)
+
+            }
+        })
+    }
+
+    sendResendLogin = (resend = false) => {
+        if (!resend && this.state.inputField.length < 7) {
+            this.setState({errorText: 'Неверный формат'})
+        } else {
+            let promis = null;
+            if (resend) {
+                promis = this.props.resendCode(this.props.initData['send_data_url'], this.props.initData['token']);
+
+            } else {
+                promis = this.props.checkLogin(this.props.initData['send_data_url'], this.props.initData['token'], this.state.inputField);
+            }
+            this.processSendLoginResponse(promis, resend)
+
+        }
+    }
+
+    handleTouchTapReSend = () => {
+        this.sendResendLogin(true)
+    }
+
+    sendCode = () => {
+        console.log('CODE IS', this.state.inputField)
+        console.log('CODE IS2', this.fixedLogin)
+        let promis = this.props.sendCode(this.props.initData['send_data_url'], this.props.initData['token'], this.state.inputField);
+
+        promis.then(response => {
+            console.log('promise CODE RESP', response)
+
+            let {value} = response;
+
+
+            let error = value['error'] || null;
+            let step = value['next-step'] || value['current-step'] || null;
+            let session = value['session'] || value['redirect'] || null;
+            let ttl = value['ttl'] || null;
+            let eta = value['eta'];
+
+
+            if (step === 'token') {
+                window.location.href = '/?later=1'
+            }
+
+
+            if (session) {
+                let [, token = null] = session.split('=')
+
+                if (!token || token.length < 3) {
+                    window.location.href = '/?later=1'
+                } else {
+                    window.location.href = '/?auth=' + token
+                }
+            }
+
+            if (error) {
+                this.setState({errorText: 'Неверный код'})
+                return false;
+            } else {
+
+                if (eta === false) {
+                    console.log('era', eta)
+                    setTimeout(() => {
+                        this.setState({
+                            h1: <h1 className="form__title" style={{color:colors.red500}}>
+                                Время действия пароля истекло. <br/> Вы можете запросить пароль еще раз
+                            </h1>,
+                            // open: true,
+                            errorText: '',
+                            textFieldType: 'password',
+                            floatingLabel: 'Пароль',
+                            rbTitle: "Войти",
+                            displayBottomText: true,
+                            bottomInfo: null,
+                            step: 'code',
+                            inputField: '',
+                            displayBottomText: false,
+                            cooldownSeconds: null,
+                            bottomInfo: this.sendOnceAgain
+
+                        });
+                        clearInterval(this.timer);
+                        this.timer = setInterval(this.timerFn, 1000);
+                    }, 350)
+                }
+
+
+            }
+        })
+
     }
 
     handleTouchTap = () => {
-
-        if (this.state.userEmail.length < 7) {
-            this.setState({errorText: 'Неверный формат'})
+        if (this.state.step === 'code') {
+            this.sendCode(false)
         } else {
-
-
-            this.props.checkLogin(this.props.initData['send_data_url'], this.props.initData['token'], this.state.userEmail);
-
-setTimeout(()=>{
-    this.setState({
-        h1: <h1 className="form__title">
-            Введите пароль<br/>
-            <span >который мы отправили {this.props.initData['method'] == 'phone' ? "на номер" : "вам на"} {this.state.userEmail}</span>
-        </h1>,
-        open: true,
-        errorText: '',
-        textFieldType: 'password',
-        floatingLabel: 'Пароль',
-        rbTitle: "Войти",
-        displayBottomText: true,
-        bottomInfo: null
-
-    });
-
-    this.timer = setInterval(this.timer, 1000);
-},350)
-
+            this.sendResendLogin(false)
 
         }
-
-
     };
 
     _handleTextFieldChange = (e) => {
         this.setState({
-            userEmail: e.target.value
+            inputField: e.target.value
         });
     };
 
@@ -193,7 +309,7 @@ setTimeout(()=>{
             <div>
 
                 <main className="sso-form">
-                    <Paper style={style} zDepth={3} rounded={false}
+                    <Paper style={this.props.muiTheme.paperStyle} zDepth={3} rounded={false}
                            className="sso-form__layout sso-form__login-form  sso-paper">
 
 
@@ -207,11 +323,19 @@ setTimeout(()=>{
                             hintStyle={{color: colors.white}}
                             fullWidth={true}
                             inputStyle={{color: colors.white}}
-                            value={this.state.userEmail}
+                            value={this.state.inputField}
                             onChange={this._handleTextFieldChange}
                             type={this.state.textFieldType}
                             errorText={this.state.errorText}
                         />
+
+
+                        {/*<MaskedInput*/}
+                        {/*guide={true}*/}
+                        {/*mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}*/}
+                        {/*placeholderChar="_"*/}
+                        {/*/>*/}
+
 
                         <RaisedButton
                             label={this.state.rbTitle}
@@ -233,7 +357,8 @@ setTimeout(()=>{
                             onRequestClose={this.handleRequestClose}
                             style={{padding: "0"}}
                         >на
-                            указанный {this.props.initData['method'] == 'phone' ? 'номер' : 'e-mail'}<br /><u>{this.state.userEmail}</u>
+                            указанный {this.props.initData['method'] === 'phone' ? 'номер телефона' : 'e-mail'}<br /><br />
+                            <strong><u>{this.fixedLogin || this.state.inputField}</u></strong>
 
                         </Dialog>
 
@@ -255,6 +380,8 @@ setTimeout(()=>{
     }
 }
 
+const withMui = muiThemeable()(EmailPage)
+
 const mapStateToProps = (state) => {
     return {
         initData: state.initDataReducer,
@@ -267,8 +394,10 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getToken: bindActionCreators(getToken, dispatch),
         checkLogin: bindActionCreators(checkLogin, dispatch),
+        resendCode: bindActionCreators(resendCode, dispatch),
+        sendCode: bindActionCreators(sendCode, dispatch),
     }
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(EmailPage)
+export default connect(mapStateToProps, mapDispatchToProps)(withMui)

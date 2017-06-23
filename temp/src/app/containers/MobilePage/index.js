@@ -70,6 +70,14 @@ const muiTheme = getMuiTheme({
         clockCircleColor: fade(darkBlack, 0.07),
         shadowColor: fullBlack,
     },
+    paperStyle: {
+        width: "360px",
+        padding: "0px 30px",
+        background: "linear-gradient(-125deg, #792B8E, #532F91)",
+        borderRadius: "2px",
+        display: 'inline-block',
+        textAlign: "left"
+    }
 });
 
 
@@ -117,12 +125,12 @@ class StartPage extends Component {
                 email: <EmailPage page="1"/>,
                 auth: <AuthSuccess page="1"/>,
                 authError: 'error while auth',
-                successPage: <AuthSuccess success={true}/>
+                successPage: <AuthSuccess success={true}/>,
+                later: <AuthSuccess success={false}/>,
+                isAuthenticated: <AuthSuccess success={true}/>,
             }
 
         };
-
-
 
 
     }
@@ -132,6 +140,16 @@ class StartPage extends Component {
     }
 
     sendSessionFn() {
+        if (this.props.isAuthenticated) {
+            this.props.setCurrentPage('isAuthenticated')
+        }
+
+
+        if (this.props.later) {
+            this.props.setCurrentPage('later')
+        }
+
+
         if (this.props.cancelVK) {
             console.log('cancel VK!!!!!!!')
             this.props.setCurrentPage('first')
@@ -150,8 +168,20 @@ class StartPage extends Component {
                         if (!response.value.token) {
                             this.props.setCurrentPage('authError')
                         } else {
-                            window.sessionStorage.setItem('tkn', response.value.token)
-                            this.props.setCurrentPage('successPage')
+                           window.sessionStorage.setItem('tkn', response.value.token)
+
+                            console.log('requestData requestData requestData', this.props.initData)
+
+                            setTimeout(()=>{
+                                // if(this.props.initData['requestData']){
+                                     window.sessionStorage.setItem('reqData', window.sessionStorage.getItem('reqData'))
+                                // }
+
+                                this.props.setCurrentPage('successPage')
+                                  // window.location.href ='?profile'
+                            },300)
+
+
 
 
                         }
@@ -166,9 +196,6 @@ class StartPage extends Component {
     }
 
     componentWillMount() {
-
-
-
 
 
         if (!this.props.initData['init_data_url']) {
@@ -213,7 +240,7 @@ class StartPage extends Component {
 
                         <Header/>
 
-                        {this.props.currentPage.num}
+                        {/*{this.props.currentPage.num}*/}
                         {this.state.renderPage[this.props.currentPage.num] || <NotFound/>}
 
 
@@ -258,9 +285,9 @@ const mapDispatchToProps = (dispatch) => {
         sendSession: bindActionCreators(sendSession, dispatch),
     }
 }
+import { withRouter } from 'react-router-dom'
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(StartPage)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(StartPage))
 
 
 

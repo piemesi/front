@@ -204,7 +204,7 @@ export const checkLogin = (baseUrl, token, login) => {
     }
 };
 
-export const sendCode = (baseUrl) => {
+export const sendCode = (baseUrl, token, code) => {
 
     console.log('current request is sendCode')
 
@@ -213,8 +213,8 @@ export const sendCode = (baseUrl) => {
     console.log('url is:', url)
 
     let data = new FormData();
-    data.append("token", 'sometoken');
-    data.append("code", 'somecode');
+    data.append("token", token);
+    data.append("code", code);
 
     return {
         type: 'SEND_CODE',
@@ -242,7 +242,7 @@ export const sendCode = (baseUrl) => {
 };
 
 
-export const resendCode = (baseUrl) => {
+export const resendCode = (baseUrl,token ) => {
 
     console.log('current request is resendCode')
 
@@ -251,16 +251,19 @@ export const resendCode = (baseUrl) => {
     console.log('url is:', url)
 
     let data = new FormData();
-    data.append("token", 'sometoken');
+    data.append("token", token);
 
     return {
         type: 'RESEND_CODE',
-        payload: axios.post(url, {
+        payload: axios.post(url, cors, {
                 body: data,
                 method: 'POST', mode: 'cors'
             }
         )
             .then(response => {
+
+                console.log('response', response)
+
                 if (response.status == 200) {
 
                     return response.data;

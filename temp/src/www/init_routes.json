@@ -1,4 +1,4 @@
 {
  	"init_data_url": "http://localhost:3002/data.json",
-	"send_data_url": "http://s2033.pro:8082"
+	"send_data_url": "http://localhost"
 }

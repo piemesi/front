@@ -9,7 +9,7 @@ import {
 } from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {fade} from 'material-ui/utils/colorManipulator';
-
+import _ from 'lodash';
 import spacing from 'material-ui/styles/spacing';
 
 
@@ -145,17 +145,76 @@ class StartPage extends Component {
 
         this.state = {
             open: this.props.page != 1,
+            shiftName: '',
+            shiftPeriod: ''
         };
     }
 
     getInitDataFn() {
-         this.props.getInitData({initDataUrl: this.props.initData['init_data_url']});
+        let proms = this.props.getInitData(this.props.initData['init_data_url']);
+
+        proms.then(response => {
+
+
+            this.dateNow = new Date().getTime();
+            if (response.value.shift) {
+
+                let course = this.props.pageData.course || 1;
+
+
+                let findA = _.findLast(response.value.shift, (m) => {
+                    let dateDs = new Date(m.ds);
+
+                    return (dateDs.getTime() > this.dateNow && m.course_type == parseInt(course))
+                })
+
+
+                if (findA) {
+
+                    let dateDs = new Date(findA.ds);
+                    let dateDf = new Date(findA.df);
+
+                    let options1 = {
+                        month: 'long',
+                        day: 'numeric'
+                    };
+
+                    let options2 = {
+                        month: 'long',
+                        day: 'numeric',
+                        year: 'numeric',
+                    };
+
+                    if (dateDs.getMonth() === dateDf.getMonth()) {
+                        options1 = {
+                            day: 'numeric'
+                        };
+                        options2 = {
+                            month: 'long',
+                            day: 'numeric',
+                            year: 'numeric',
+
+                        };
+                    }
+
+                    this.setState({
+                        shiftName: findA.title,
+                        shiftPeriod: dateDs.toLocaleString("ru", options1) + " - " + dateDf.toLocaleString("ru", options2)
+                    })
+                }
+
+
+            }
+
+
+        })
     }
+
 
     componentWillMount() {
 
         if (!this.props.initData['init_data_url']) {
-            setTimeout(this.getInitDataFn.bind(this), 350)
+            setTimeout(this.getInitDataFn.bind(this), 150)
         }
 
 
@@ -188,15 +247,14 @@ class StartPage extends Component {
         return this.props.initData['send_data_url'] || '/page_not_found';
     }
 
-    handleClick   ()   {
+    handleClick() {
 
         let link = this.props.sendData(this.props.pageData)
 
-       // setTimeout(()=> link = this.props.pageData['link'], 350)
+        // setTimeout(()=> link = this.props.pageData['link'], 350)
 
-        let finalLink = this.getExternalPage()+'?shift='+link.link;
+        let finalLink = this.getExternalPage() + '?shift=' + link.link;
         console.log('redirect LINK', finalLink);
-
 
 
         // window.location = '/temp/';
@@ -231,12 +289,12 @@ class StartPage extends Component {
         />;
 
         if (this.props.page != 1) {
-            closeBtn =  <FlatButton
+            closeBtn = <FlatButton
                 label="Закрыть"
                 // secondary={true}
                 style={styles.clsBtn}
                 onTouchTap={this.handleClose}
-            /> ;
+            />;
         }
 
         console.log('currPage', this.props)
@@ -248,7 +306,7 @@ class StartPage extends Component {
         if (this.props.page != "1") {
             linkIs =
                 <FlatButton style={{}} onClick={this.handleClick.bind(this)} label="Отправить" secondary={true}/>
-           //     <a href={this.getExternalPage()} target="_blank"></a>
+            //     <a href={this.getExternalPage()} target="_blank"></a>
         }
 
         const actions = [
@@ -261,9 +319,10 @@ class StartPage extends Component {
             <main className="sso-form">
 
                 <div className="shiftInfo">
-                    <p style={style.p}>13-26 мая 2017</p>
+                    <p style={style.p}>{this.state.shiftPeriod || '1 - 24 октября 2017'}</p>
                     <h1 style={style.h1}>
-                        Математическая смена
+                        {this.state.shiftName || 'ОЛИМПИАДНАЯ БИОЛОГИЧЕСКАЯ СМЕНА'}
+
                     </h1>
                 </div>
                 <RaisedButton onTouchTap={this.handleOpen} label="Отправить заявку" secondary={true}
@@ -298,8 +357,7 @@ class StartPage extends Component {
                     }}
                     open={this.state.open}
                 >
-                     {this.props.page == 1 ? <SelectFieldEx initData={initData}/> : <DatePickerEx />}
-
+                    {this.props.page == 1 ? <SelectFieldEx initData={initData}/> : <DatePickerEx />}
 
 
                 </Dialog>

@@ -3,7 +3,7 @@ import constants from '../constants'
 
 const initDataReducer = (state = {}, action) => { //state = {courseType,shift}
 
-    console.log('ACTION IS:', action)
+
 
 
     switch (action.type) {

@@ -193,22 +193,8 @@ class StartPage extends Component {
 
 
 
-
                         <Footer />
 
-                        {/*<footer className="sso-footer">*/}
-                            {/*<div className="sso-footer__left-section">*/}
-                                {/*<img className="sso-footer__left-section-em" src="/images/em.png"/>*/}
-                                {/*<span className="sso-footer__left-section-text">*/}
-                                    {/*При поддержке и координации <br/> Министерства образования и науки, Министерства спорта <br/> и Министерства культуры Российской Федерации.*/}
-                              {/*</span>*/}
-                            {/*</div>*/}
-                            {/*<div className="sso-footer__right-section">*/}
-                                {/*<span className="right-section-copy">*/}
-                                      {/*© 2015-2017 Фонд «Талант и успех»*/}
-                                {/*</span>*/}
-                            {/*</div>*/}
-                        {/*</footer>*/}
 
 
 

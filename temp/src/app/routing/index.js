@@ -14,6 +14,13 @@ import Video from '../containers/Video'
 
 const AnimationRouting = () => (
     <Router >
+        <div>
+        <Route exact path="/profile"
+               // location={location}
+               // key={location.key}
+
+               component={HSL}
+        />
         <Route render={({location}) => (
             <div style={styles.fill}>
                 {/*<Route exact path="*" render={() => (*/}
@@ -34,7 +41,7 @@ const AnimationRouting = () => (
                          so it can match the old location
                          as it animates out
                          */}
-                        <Route path="*"
+                        <Route path="/"
                                location={location}
                                key={location.key}
 
@@ -46,6 +53,7 @@ const AnimationRouting = () => (
                 </div>
             </div>
         )}/>
+        </div>
     </Router>
 )
 
@@ -60,9 +68,9 @@ import Page from '../containers/MobilePage'
 const HSL = (props) => {
 //
     const params = new URLSearchParams(props.location.search);
-    const shift = params.get('shift')  ; // bar
+    const shift = params.get('shift'); // bar
     console.log('shift', shift)
-let dataO;
+    let dataO;
 
 
     let authVKHash = params.get('auth') || null;
@@ -71,11 +79,14 @@ let dataO;
     let cancelVK = params.get('cancel') || null;
     console.log('cancelVK', cancelVK)
 
+    let later = params.get('later') || null;
+    console.log('later', later)
+
     if (!authVKHash && !cancelVK) {
-         dataO =shift ? base64.decode(shift).toString() : null;
+        dataO = shift ? base64.decode(shift).toString() : null;
 
         window.sessionStorage.setItem("reqData", dataO);
-    } else   {
+    } else {
 
         dataO = window.sessionStorage.getItem("reqData");
         console.log('data origin from session', dataO)
@@ -86,12 +97,7 @@ let dataO;
     let extData = dataO ? dataO.split(',') : null
     console.log('data origin arr', extData)
 
-
-
-
-
-
-
+    let isAuthenticated = window.sessionStorage.getItem("tkn") || null
 
     const videos = [
         {
@@ -103,6 +109,8 @@ let dataO;
                                         extData={extData}
                                         authVKHash={authVKHash}
                                         cancelVK={cancelVK}
+                                        later={later}
+                                        isAuthenticated={isAuthenticated}
     />}
 
                   videos={videos}
@@ -128,28 +136,10 @@ styles.content = {
 
 }
 
-styles.nav = {
-    // padding: 0,
-    // margin: 0,
-    // position: 'absolute',
-    // top: 0,
-    // height: '40px',
-    // width: '100%',
-    // display: 'flex'
-}
+styles.nav = {}
 
-styles.navItem = {
-    // textAlign: 'center',
-    // flex: 1,
-    // listStyleType: 'none',
-    // padding: '10px'
-}
+styles.navItem = {}
 
-styles.hsl = {
-    // ...styles.fill,
-    // color: 'white',
-    // paddingTop: '20px',
-    // fontSize: '30px'
-}
+styles.hsl = {}
 
 export default AnimationRouting

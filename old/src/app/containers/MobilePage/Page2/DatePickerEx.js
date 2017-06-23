@@ -88,13 +88,14 @@ class DatePickerEx extends Component {
         minDate.setHours(0, 0, 0, 0);
         maxDate.setDate(minDate.getDate()+22)//setFullYear(maxDate.getFullYear() + 1);
         maxDate.setHours(0, 0, 0, 0);
-
         this.state = {
             minDate: minDate,
             maxDate: maxDate,
             autoOk: true,
             disableYearSelection: false,
         };
+        this.props.setPeriod({start: this.state.minDate.toString(), end:  this.state.maxDate.toString() })
+
     }
 
     handleChangeMinDate = (event, date) => {

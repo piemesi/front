@@ -11,6 +11,9 @@ import {
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import * as actions from '../../../actions'
+
+import _ from 'lodash'
+
 class RequestTable extends Component {
     state = {
         selected: [0],
@@ -27,6 +30,25 @@ class RequestTable extends Component {
     };
 
     render() {
+
+        let [course,shift1,ds,df] = window.sessionStorage.getItem('reqData').split(',')
+
+        let dsS = ds ? new Date(ds) : null
+        let dfS = df ? new Date(df) : null
+
+        let period = '';
+
+        if(dsS && dfS) {
+            period =  dsS.getDate()+'/'+dsS.getMonth() + ' - '+dfS.getDate()+'/'+dfS.getMonth()
+        }
+
+        let {courseType, shift} = this.props.initData
+
+        let courseObj = _.find(courseType, {id:parseInt(course)})
+        let shiftObj = _.find(shift, {id:parseInt(shift1)})
+
+        let sName = shiftObj ? shiftObj.title : 'смена'
+        let cName = courseObj? courseObj.title : 'курс'
         return (
             <Table onRowSelection={this.handleRowSelection}>
                 <TableHeader>
@@ -38,9 +60,9 @@ class RequestTable extends Component {
                 </TableHeader>
                 <TableBody>
                     <TableRow selected={this.isSelected(0)}>
-                        <TableRowColumn>Смена</TableRowColumn>
-                        <TableRowColumn>Курс</TableRowColumn>
-                        <TableRowColumn>Employed</TableRowColumn>
+                        <TableRowColumn>{sName}</TableRowColumn>
+                        <TableRowColumn>{cName}</TableRowColumn>
+                        <TableRowColumn>{period}</TableRowColumn>
                     </TableRow>
 
                 </TableBody>
@@ -61,8 +83,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getInitRoutes: bindActionCreators(getInitRoutes, dispatch),
-        setCurrentPage: bindActionCreators(setCurrentPage, dispatch),
+        getInitRoutes: bindActionCreators(actions.getInitRoutes, dispatch),
+        setCurrentPage: bindActionCreators(actions.setCurrentPage, dispatch),
     }
 }
 
