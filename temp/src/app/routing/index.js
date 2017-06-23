@@ -72,6 +72,8 @@ const HSL = (props) => {
     console.log('shift', shift)
     let dataO;
 
+    let profile = params.get('profile') || null;
+    console.log('profile', profile)
 
     let authVKHash = params.get('auth') || null;
     console.log('authVKHash', authVKHash)
@@ -82,7 +84,8 @@ const HSL = (props) => {
     let later = params.get('later') || null;
     console.log('later', later)
 
-    if (!authVKHash && !cancelVK) {
+
+    if (shift) {
         dataO = shift ? base64.decode(shift).toString() : null;
 
         window.sessionStorage.setItem("reqData", dataO);
@@ -93,6 +96,17 @@ const HSL = (props) => {
 
     }
 
+    // if (!authVKHash && !cancelVK && !profile) {
+    //     dataO = shift ? base64.decode(shift).toString() : null;
+    //
+    //     window.sessionStorage.setItem("reqData", dataO);
+    // } else {
+    //
+    //     dataO = window.sessionStorage.getItem("reqData");
+    //     console.log('data origin from session', dataO)
+    //
+    // }
+
     console.log('data origin', dataO)
     let extData = dataO ? dataO.split(',') : null
     console.log('data origin arr', extData)
@@ -101,7 +115,8 @@ const HSL = (props) => {
 
     const videos = [
         {
-            src: 'http://cdn.online-convert.com/example-file/video/mp4/example_2s.mp4',
+            // src: 'http://cdn.online-convert.com/example-file/video/mp4/example_2s.mp4',
+            src: '/images/video.mp4',
             type: 'video/mp4'
         }
     ];

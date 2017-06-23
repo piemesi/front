@@ -73,7 +73,7 @@ class BackgroundVideo extends Component {
     }
 
     onEnd() {
-        console.log('ended', 'ENDED')
+       // console.log('ended', 'ENDED')
 
         this.setState({
             fading: {...this.state.fading, ...fadingStyle}
@@ -92,7 +92,7 @@ class BackgroundVideo extends Component {
             loop: this.props.loop,
             autoPlay: this.props.autoPlay,
             poster: this.props.poster,
-        };
+         };
 
         const videoClassNames = classNames({
             'video-container': true,
@@ -112,7 +112,7 @@ class BackgroundVideo extends Component {
         return (
             // className={videoClassNames}
             <div style={videoBackground} onClick={this.props.onClick}>
-                <video style={Object.assign({}, this.state.fading)} onEnded={this.onEnd.bind(this)}
+                <video muted={true} style={Object.assign({}, this.state.fading)} onEnded={this.onEnd.bind(this)}
                        id={this.props.videoId} className="video-background" {...videoProps}>
                     {videos}
                  </video>

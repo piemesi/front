@@ -106,8 +106,8 @@ class StartPage extends Component {
 
     constructor(props, context) {
         super(props, context);
-
-        this.props.getInitRoutes();
+        this.sendSessionFn()
+        // this.props.getInitRoutes();
 
         // let parsed = queryString.parse(history.location);
 
@@ -115,12 +115,12 @@ class StartPage extends Component {
             this.props.setRequestData(this.props.extData)
         }
 
-        this.sendSessionFn()
-
 
         this.state = {
             open: false,
+
             renderPage: {
+                none: '',
                 first: <Page_1 page="1"/>,
                 email: <EmailPage page="1"/>,
                 auth: <AuthSuccess page="1"/>,
@@ -129,70 +129,74 @@ class StartPage extends Component {
                 later: <AuthSuccess success={false}/>,
                 isAuthenticated: <AuthSuccess success={true}/>,
             }
-
         };
 
 
     }
+
 
     getInitDataFn() {
         this.props.getInitData(this.props.initData['init_data_url']);
     }
 
     sendSessionFn() {
-        if (this.props.isAuthenticated) {
-            this.props.setCurrentPage('isAuthenticated')
-        }
 
+        this.props.setCurrentPage('none')
 
-        if (this.props.later) {
-            this.props.setCurrentPage('later')
-        }
+        let isFirst = true;
 
+        let promis = this.props.getInitRoutes()
+        promis.then(response => {
+            console.log('PROMISE INIT DATA DONE', response)
 
-        if (this.props.cancelVK) {
-            console.log('cancel VK!!!!!!!')
-            this.props.setCurrentPage('first')
-        } else if (this.props.authVKHash) {
-            console.log('authVKHash!!!!!!!')
-            this.props.setCurrentPage('auth')
-            if (!this.props.initData['send_data_url']) {
-                setTimeout(() => {
-                    console.log('where to send', this.props.initData)
-                    let finalToken = this.props.sendSession(this.props.initData['send_data_url'], this.props.authVKHash);
-                    console.log('Final Token is', finalToken);
-                    finalToken.then(response => {
-
-                        console.log('PROMISE SEND SESSION RESP', response)
-
-                        if (!response.value.token) {
-                            this.props.setCurrentPage('authError')
-                        } else {
-                           window.sessionStorage.setItem('tkn', response.value.token)
-
-                            console.log('requestData requestData requestData', this.props.initData)
-
-                            setTimeout(()=>{
-                                // if(this.props.initData['requestData']){
-                                     window.sessionStorage.setItem('reqData', window.sessionStorage.getItem('reqData'))
-                                // }
-
-                                this.props.setCurrentPage('successPage')
-                                  // window.location.href ='?profile'
-                            },300)
-
-
-
-
-                        }
-                    })
-
-
-                }, 350)
+            if (this.props.isAuthenticated) {
+                this.props.setCurrentPage('isAuthenticated')
+                isFirst = false;
             }
 
 
-        }
+            if (this.props.later) {
+                this.props.setCurrentPage('later')
+                isFirst = false;
+            }
+
+
+            if (this.props.cancelVK) {
+                console.log('cancel VK!!!!!!!')
+                this.props.setCurrentPage('first')
+            } else if (this.props.authVKHash) {
+                console.log('authVKHash!!!!!!!')
+                // this.props.setCurrentPage('auth')
+                isFirst = false;
+                console.log('where to send', this.props.initData)
+                let finalToken = this.props.sendSession(this.props.initData['send_data_url'], this.props.authVKHash);
+                console.log('Final Token is', finalToken);
+                finalToken.then(response => {
+
+                    console.log('PROMISE SEND SESSION RESP', response)
+
+                    let accessToken = response.value['access-token'] || null
+
+                    if (!accessToken) {
+
+                        window.location.href = '/?later=1'
+                    } else {
+
+                        window.sessionStorage.setItem('tkn', accessToken)
+                        console.log('requestData requestData requestData', this.props.initData)
+                        window.location.href = '?profile=1'
+
+                    }
+                })
+
+
+            }
+            if (isFirst) {
+                this.props.setCurrentPage('first')
+            }
+        })
+
+
     }
 
     componentWillMount() {
@@ -241,7 +245,7 @@ class StartPage extends Component {
                         <Header/>
 
                         {/*{this.props.currentPage.num}*/}
-                        {this.state.renderPage[this.props.currentPage.num] || <NotFound/>}
+                        {this.state.renderPage[this.props.currentPage.num] || ''}
 
 
                         <footer className="sso-footer">
@@ -285,7 +289,7 @@ const mapDispatchToProps = (dispatch) => {
         sendSession: bindActionCreators(sendSession, dispatch),
     }
 }
-import { withRouter } from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(StartPage))
 

@@ -20,8 +20,10 @@ const styles = {
         marginBottom: '27px',
         paddingBottom: '36px'
     },
-    buttonLabel:{        color: colors.deepOrange800,
-        textTransform: 'initial'}
+    buttonLabel: {
+        color: colors.deepOrange800,
+        textTransform: 'initial'
+    }
 }
 
 
@@ -30,11 +32,42 @@ class AuthPage extends Component {
     constructor(props) {
         super(props)
 
+
+        let text = this.props.success ? 'Добро пожаловать в личный кабинет' : `Авторизация недоступна. Попробуйте авторизоваться позже`
+
+        let btn = this.props.success ? <FlatButton fullWidth={true} onClick={this.openRequestTable}
+                                                   label="Ваш запрос"
+                                                   labelPosition="before"
+                                                   labelStyle={styles.buttonLabel}
+                                                   style={styles.uploadButton}
+
+                                                   containerElement="label"
+        />
+            : <br/>;
+
+
+
+
+        this.setState({
+            text: text,
+            btn: btn
+        })
+
+
+
         this.state = {
             open: false,
-            success: this.props.success || true
+            success: this.props.success || true,
+            text: text,
+            btn: btn
         }
     }
+
+    getInitialState() {
+
+
+
+     }
 
     openRequestTable = () => {
         this.setState({
@@ -54,52 +87,32 @@ class AuthPage extends Component {
             <FlatButton label="Ok" secondary={true} onTouchTap={this.handleRequestClose}/>
         );
 
-        const h1Style = {color:  this.props.muiTheme.palette.accent3Color} //this.props.success ? {color:  this.props.muiTheme.palette.accent3Color} : {color:  this.props.muiTheme.palette.accent1Color}
-
-        let text = this.props.success ? 'Добро пожаловать в личный кабинет' :  `Авторизация недоступна. Попробуйте авторизоваться позже`
-
-        let paperStyle = {...this.props.muiTheme.paperStyle}
-       // paperStyle = !this.props.success ? {...paperStyle, background: colors.darkWhite} : paperStyle
-
-
-
         return (
             <div>
 
                 <main className="sso-form">
-                    <Paper style={paperStyle} zDepth={3} rounded={false}
+                    <Paper style={this.props.muiTheme.paperStyle} zDepth={3} rounded={false}
                            className="sso-form__layout sso-form__login-form  sso-paper">
-                    <h1 style={h1Style}>{text} </h1>
+                        <h1 style={{color: this.props.muiTheme.palette.accent3Color} }>{this.state.text} </h1>
 
-                        { this.props.success ?  <FlatButton fullWidth={true} onClick={this.openRequestTable}
-                                                            label="Ваш запрос"
-                                                            labelPosition="before"
-                                                            labelStyle={styles.buttonLabel}
-                                                            style={styles.uploadButton}
+                        {this.state.btn}
 
-                                                            containerElement="label"
-                        />
-                        : <br/>
-                        }
-
-
-                    <Dialog
-                        open={this.state.open}
-                        title="Заявка отправлена"
-                        actions={standardActions}
-                        modal={false}
-                        onRequestClose={this.handleRequestClose}
-                        style={{padding: "0"}}
-                    >
-                        <RequestTable />
-                    </Dialog>
-                </Paper>
+                        <Dialog
+                            open={this.state.open}
+                            title="Заявка отправлена"
+                            actions={standardActions}
+                            modal={false}
+                            onRequestClose={this.handleRequestClose}
+                            style={{padding: "0"}}
+                        >
+                            <RequestTable />
+                        </Dialog>
+                    </Paper>
                 </main>
             </div>
         )
     }
 }
-
 
 
 const withMui = muiThemeable()(AuthPage)

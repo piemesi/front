@@ -154,8 +154,9 @@ class EmailPage extends Component {
                 return;
             } else {
 
+
                 if (!resend && (step !== 'code' || !(method === 'email' || method === 'phone') || !ttl)) {
-                    window.location.href = '/?later=1'
+                     window.location.href = '/?later=1'
                 }
 
                 if (resend && !eta) {
@@ -184,7 +185,7 @@ class EmailPage extends Component {
                     });
 
                     this.timer = setInterval(this.timerFn, 1000);
-                }, 350)
+                }, 250)
 
             }
         })
@@ -220,6 +221,9 @@ class EmailPage extends Component {
 
             let {value} = response;
 
+            if(!value) {
+       //       window.location.href = '/?later=1'
+            }
 
             let error = value['error'] || null;
             let step = value['next-step'] || value['current-step'] || null;
@@ -232,12 +236,16 @@ class EmailPage extends Component {
                 window.location.href = '/?later=1'
             }
 
-
+            // return false;
             if (session) {
-                let [, token = null] = session.split('=')
 
+
+                let [, token = null] = session.split('=')
+  console.log('TOKEN', token)
+
+//                return false;
                 if (!token || token.length < 3) {
-                    window.location.href = '/?later=1'
+                   window.location.href = '/?later=1'
                 } else {
                     window.location.href = '/?auth=' + token
                 }

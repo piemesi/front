@@ -83,13 +83,13 @@ const styles = {
                             target="_blank"
                             label=" Войти"
                             labelColor={white}
-                            labelStyle={{letterSpacing: "0.7px"}}
+                            labelStyle={{letterSpacing: "0.7px", fontSize:'13px'}}
                             buttonStyle={{border: 'none', borderRadius: '0px'}}
                             // secondary={true}
                             className="login-form__vk"
-                            overlayStyle={{backgroundColor: "#507298", border: 'none', borderRadius: '0px'}}
-                            icon={<FontAwesome   onClick={this.props.nextPage} name="vk" size="2x"
-                                               style={{color: white}}/>}
+                            overlayStyle={{backgroundColor: "#507298", border: 'none', borderRadius: '0px', height:'38px'}}
+                            icon={<FontAwesome className="vkIcon"  onClick={this.props.nextPage} name="vk" size="2x"
+                                               style={{color: white, fontSize:'1.5em',     height: "30px"}}/>}
                         />
                         <div className="login-form__line">
                             <span>или</span>

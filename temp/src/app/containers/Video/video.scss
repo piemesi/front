@@ -39,5 +39,17 @@
 @media (max-width: 767px) {
   .video-background{
     display: none;
+    opacity: 0;
+    background: none;
+    background-size: cover;
+    z-index: -999;
+    //transition: none;
+
+  }
+
+  .video-cover {
+    display: none;
+    opacity: 0;
+    background: none;
   }
 }

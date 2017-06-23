@@ -64,7 +64,7 @@ export const getInitData = (url) => {
 
     return {
         type: 'GET_INIT_DATA',
-        payload: fetch(url, cors )
+        payload: fetch(url, cors)
             .then(response => {
                 if (response.ok) {
 
@@ -125,10 +125,10 @@ export const getToken = (baseUrl) => {
         // })
 
 
-        payload: axios.post(url, cors, {
+        payload: fetch(url, { //cors, {
                 // body: data,
                 method: 'POST',
-                mode: 'cors',
+                //     mode: 'cors',
                 // headers: {
                 //     'Access-Control-Allow-Origin': '*',
                 //     "Content-Type": "application/json; charset=UTF-8",
@@ -147,9 +147,9 @@ export const getToken = (baseUrl) => {
 
                 console.log('response', response)
 
-                if (response.status == 200) {
+                if (response.ok) {
 
-                    return response.data;///json()
+                    return response.json();///json()
 
                 }
                 else {
@@ -173,23 +173,60 @@ export const checkLogin = (baseUrl, token, login) => {
     console.log('url is:', url)
 
     let data = new FormData();
-    data.append("token", token);
+    // data.append("Token", token);
     data.append("login", login);
+
+
+    console.log("data request", data);
+
+
+    // var payload = {
+    //     a: 1,
+    //     b: 2
+    // };
+    //
+    // var data = new FormData();
+    // data.append( "json", 'TEST' );
+    //
+    // fetch("http://s2033.pro:8082/login/",
+    //     {
+    //         method: "POST",
+    //         body: data
+    //     })
+    //     .then(function(res){ return res.json(); })
+    //     .then(function(data){ alert( JSON.stringify( data ) ) })
+    //
+
 
     return {
         type: 'CHECK_LOGIN',
-        payload: axios.post(url, cors, {
+        payload: fetch(url, {     //cors(),
+                headers: {'Token': token},
                 body: data,
-                method: 'POST', mode: 'cors'
+                method: 'POST' //,   mode: 'cors',
+
+
+                // headers: {
+                //     'Access-Control-Allow-Origin': '*',
+                //     "Content-Type": "application/json; charset=UTF-8",
+                //     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                //     "Access-Control-Allow-Headers": "Content-Type",
+                //     "Access-Control-Request-Headers": "X-Requested-With, accept, content-type",
+                //     'X-Requested-With': 'XMLHttpRequest'
+                //     // "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+                // },
+
             }
         )
             .then(response => {
 
-                console.log('response', response)
 
-                if (response.status == 200) {
+                if (response.ok) {
 
-                    return response.data;
+                    let resp = response.json()
+                    console.log('response', resp)
+                    console.log('responseVal', resp.value)
+                    return resp;
 
                 }
                 else {
@@ -213,20 +250,24 @@ export const sendCode = (baseUrl, token, code) => {
     console.log('url is:', url)
 
     let data = new FormData();
-    data.append("token", token);
+    // data.append("Token", token);
     data.append("code", code);
 
     return {
         type: 'SEND_CODE',
-        payload: axios.post(url, cors, {
+        payload: fetch(url, {//axios.post(url, cors, {
+                headers: {'Token': token},
                 body: data,
-                method: 'POST', mode: 'cors'
+                method: 'POST' //, mode: 'cors'
             }
         )
             .then(response => {
-                if (response.status == 200) {
+                if (response.ok) {
 
-                    return response.data;
+                    let resp = response.json()
+                    console.log('response', resp)
+                    console.log('responseVal', resp.value)
+                    return resp;
 
                 }
                 else {
@@ -242,7 +283,7 @@ export const sendCode = (baseUrl, token, code) => {
 };
 
 
-export const resendCode = (baseUrl,token ) => {
+export const resendCode = (baseUrl, token) => {
 
     console.log('current request is resendCode')
 
@@ -251,22 +292,26 @@ export const resendCode = (baseUrl,token ) => {
     console.log('url is:', url)
 
     let data = new FormData();
-    data.append("token", token);
+    // data.append("token", token);
 
     return {
         type: 'RESEND_CODE',
-        payload: axios.post(url, cors, {
+        payload: fetch(url, {//axios.post(url, cors, {
+                headers: {'Token': token},
                 body: data,
-                method: 'POST', mode: 'cors'
+                method: 'POST' //, mode: 'cors'
             }
         )
             .then(response => {
 
                 console.log('response', response)
 
-                if (response.status == 200) {
+                if (response.ok) {
 
-                    return response.data;
+                    let resp = response.json()
+                    console.log('response', resp)
+                    console.log('responseVal', resp.value)
+                    return resp;
 
                 }
                 else {
@@ -281,30 +326,35 @@ export const resendCode = (baseUrl,token ) => {
     }
 };
 
-export const sendSession = (baseUrl,token) => {
+export const sendSession = (baseUrl, checkToken) => {
 
     console.log('current request is sendSession')
 
-    let url = baseUrl + '/session/';
+    let url = baseUrl + '/get-token/';
 
-    url = url+ '?token='+token; //@toDo - delete
+    url = url ;//+ '?token=' + checkToken;
 
     console.log('url is:', url)
 
     let data = new FormData();
-    data.append("token", token);
+    data.append("check", checkToken);
 
     return {
         type: 'SEND_SESSION',
-        payload: axios.get(url, cors, { // @toDo to post
-              //  body: data,
+        payload: fetch(url, {//axios.get(url, cors, {
+            // headers: {'Token': token},
+            method: 'POST',
+            body: data,
                 //, mode: 'cors'
             }
         )
             .then(response => {
-                if (response.status == 200) {
+                if (response.ok) {
 
-                    return response.data;
+                    let resp = response.json()
+                    console.log('response', resp)
+                    console.log('responseVal', resp.value)
+                    return resp;
 
                 }
                 else {
@@ -332,7 +382,6 @@ export const setRequestData = (reqData) => {
     if (df) {
         df = new Date(df);
     }
-
 
 
     return {
